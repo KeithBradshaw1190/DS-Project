@@ -2,7 +2,7 @@ package Models;
 
 public class TV {
 	private String deviceName, currentChannel;
-	private boolean onOff, mute;
+	private boolean onOff;
 	private int volume;
 	
 	public TV() {}
@@ -31,13 +31,6 @@ public class TV {
 		this.onOff = onOff;
 	}
 
-	public boolean isMute() {
-		return mute;
-	}
-
-	public void setMute(boolean mute) {
-		this.mute = mute;
-	}
 
 	public int getVolume() {
 		return volume;
