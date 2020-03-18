@@ -1,11 +1,25 @@
 package Models;
 
 public class TV {
-	private String deviceName, currentChannel;
+	private String device,deviceName, currentChannel;
 	private boolean onOff;
 	private int volume;
 	
-	public TV() {}
+	public TV() {
+		this.device="TV";
+
+	}
+	
+	
+	public String getDevice() {
+		return device;
+	}
+
+	public void setDevice(String device) {
+		this.device = device;
+	}
+
+	
 
 	public String getDeviceName() {
 		return deviceName;

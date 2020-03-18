@@ -1,35 +1,20 @@
 package GUI;
 
-import java.awt.CardLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-
-import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.table.JTableHeader;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Main {
 
 	private JFrame frame;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table_3;
 	private JTextField device_name_text;
 	private JTextField device_onOff_text;
 	private JTextField device_extra_op_text;
@@ -74,10 +59,18 @@ public class Main {
 		headLabel.setBounds(101, 11, 245, 14);
 		frame.getContentPane().add(headLabel);
 		
-		JButton toggleRegister = new JButton("Turn On Device Register");
-		toggleRegister.setBounds(83, 50, 150, 23);
-		frame.getContentPane().add(toggleRegister);
+		//Register Button
+		JButton register_btn = new JButton("Turn On Device Register");
+		register_btn.setBounds(83, 50, 150, 23);
+		frame.getContentPane().add(register_btn);
+		register_btn.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent event) {
+				System.out.println("We g");
+				}
+			});
 		
+		//Discover Button
 		JButton search = new JButton("Search For Devices");
 		search.setBounds(243, 50, 125, 23);
 		frame.getContentPane().add(search);

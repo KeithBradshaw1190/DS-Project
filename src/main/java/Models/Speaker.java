@@ -1,12 +1,22 @@
 package Models;
 
 public class Speaker {
-private String deviceName;
+private String device,deviceName;
 private boolean onOff, mute;
 private int volume;
 
 public Speaker() {
-	
+	this.device="Speaker";
+
+}
+
+
+public String getDevice() {
+	return device;
+}
+
+public void setDevice(String device) {
+	this.device = device;
 }
 
 public String getDeviceName() {

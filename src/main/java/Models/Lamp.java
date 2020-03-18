@@ -1,11 +1,24 @@
 package Models;
 
 public class Lamp {
-	private String deviceName;
+	private String device,deviceName;
 	private boolean onOff;
 	private int brightness;
 	
-	public Lamp(){}
+	public Lamp(){
+		this.device="Lamp";
+
+	}
+	
+	public String getDevice() {
+		return device;
+	}
+
+	public void setDevice(String device) {
+		this.device = device;
+	}
+
+
 
 	public String getDeviceName() {
 		return deviceName;

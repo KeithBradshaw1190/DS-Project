@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.DS.keithproject.SmartHomeGRPC";
+option java_outer_classname = "LampServiceImpl";
+
+package SmartHomeGRPC;
+
+// Interface exported by the server.
+
+
+service LampService {
+  
+  rpc changeBrightness(valRequest) returns (valResponse) {}
+  
+  rpc onOff(BooleanReq) returns (BooleanRes) {}
+  
+  rpc changeDeviceName(StringRequest) returns (StringResponse) {}
+  
+}
+
+message StringRequest {
+	string text = 1;
+}
+
+message StringResponse {
+	string text = 1;
+}
+
+message BooleanReq {
+	bool msg = 2;
+}
+
+message BooleanRes {
+	bool msg = 2;
+}
+
+message valRequest {
+  int32 length = 3;
+}
+message valResponse {
+  int32 length = 3;
+}

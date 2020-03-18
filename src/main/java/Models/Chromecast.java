@@ -1,11 +1,24 @@
 package Models;
 
 public class Chromecast {
-	private String deviceName, currentAppName;
+	private String device,deviceName, currentAppName;
 	private boolean onOff, mute;
 	private int volume;
 	
-	public Chromecast() {}
+	public Chromecast() {
+		this.device="Chromecast";
+	}
+
+	
+	public String getDevice() {
+		return device;
+	}
+
+
+	public void setDevice(String device) {
+		this.device = device;
+	}
+
 
 	public String getDeviceName() {
 		return deviceName;
