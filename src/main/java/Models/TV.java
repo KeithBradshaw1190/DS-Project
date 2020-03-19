@@ -1,9 +1,9 @@
 package Models;
 
 public class TV {
-	private String device,deviceName, currentChannel;
+	private String device,deviceName;
 	private boolean on;
-	private int volume;
+	private int volume,currentChannel;
 	
 	public TV() {
 		this.device="TV";
@@ -29,11 +29,11 @@ public class TV {
 		this.deviceName = deviceName;
 	}
 
-	public String getCurrentChannel() {
+	public int getCurrentChannel() {
 		return currentChannel;
 	}
 
-	public void setCurrentChannel(String currentChannel) {
+	public void setCurrentChannel(int currentChannel) {
 		this.currentChannel = currentChannel;
 	}
 

@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
+import org.DS.keithproject.SmartHomeGRPC.StringRequest;
+import org.DS.keithproject.SmartHomeGRPC.StringResponse;
 import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
@@ -45,9 +47,9 @@ public class TVServer extends TvServiceImplBase {
 	}
 	 @Override
 	 public void changeVolume(valRequest request, StreamObserver<valResponse> responseObserver) {
-		 System.out.println("receiving mute for TV");
+		 System.out.println("receiving volume for TV");
 		 int volume = request.getLength();
-		 if(volume<=100 && volume>=0) {
+		 if(volume<=100 && volume>=1) {
 			 myTv.setVolume(volume);
 		 }
 		 valResponse response = valResponse.newBuilder().setLength(volume).build();
@@ -55,5 +57,30 @@ public class TVServer extends TvServiceImplBase {
 		responseObserver.onCompleted();
 
 	}
+	 @Override
+	 public void changeDeviceName(StringRequest request, StreamObserver<StringResponse> responseObserver) {
+		 
+		 System.out.println("receiving volume for TV");
+		 String name = request.getText();
+			 myTv.setDeviceName(name);
+		 
+		 StringResponse response = StringResponse.newBuilder().setText(name).build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	 }
+	 @Override
+	 public void changeChannel(valRequest request, StreamObserver<valResponse> responseObserver) {
+		 
+		 System.out.println("receiving volume for TV");
+		 int channel = request.getLength();
+		 if(channel<=10 && channel>=1) {
+			 myTv.setCurrentChannel(channel);
+		 }
+		 
+		 valResponse response = valResponse.newBuilder().setLength(channel).build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	 }
+
 	 
 }

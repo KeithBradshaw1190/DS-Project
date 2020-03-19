@@ -11,6 +11,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import org.DS.keithproject.SmartHomeGRPC.valRequest;
+import org.DS.keithproject.SmartHomeGRPC.valResponse;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.DS.keithproject.SmartHomeGRPC.*;
+import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceFutureStub;
+
+import io.grpc.stub.StreamObserver;
 
 public class Main {
 
@@ -19,7 +31,22 @@ public class Main {
 	private JTextField device_onOff_text;
 	private JTextField device_extra_op_text;
 	private JTextField device_extra_op2_text;
+	//All Stubs and channels
+	private static TvServiceGrpc.TvServiceBlockingStub tv_blockingStub;
+	private static TvServiceGrpc.TvServiceStub tv_asyncStub;
+	private static TvServiceGrpc.TvServiceFutureStub tv_futureStub;
+	
+	private static LampServiceGrpc.LampServiceBlockingStub lamp_blockingStub;
+	private static LampServiceGrpc.LampServiceStub lamp_asyncStub;
+	private static LampServiceGrpc.LampServiceFutureStub lamp_futureStub;
+	
+	private static SpeakerServiceGrpc.SpeakerServiceBlockingStub speaker_blockingStub;
+	private static SpeakerServiceGrpc.SpeakerServiceStub speaker_asyncStub;
+	private static SpeakerServiceGrpc.SpeakerServiceFutureStub speaker_futureStub;
+	
 
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -40,12 +67,44 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+	
 		initialize();
+		channels();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	public void channels() {
+		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
+		tv_blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
+		tv_asyncStub = TvServiceGrpc.newStub(tvChannel);
+		tv_futureStub = TvServiceGrpc.newFutureStub(tvChannel);
+		
+		speaker_blockingStub = SpeakerServiceGrpc.newBlockingStub(speakerChannel);
+		speaker_asyncStub = SpeakerServiceGrpc.newStub(speakerChannel);
+		speaker_futureStub = SpeakerServiceGrpc.newFutureStub(speakerChannel);
+	}
+	
+	
+	
+	public static void changeVolume(int volume, String deviceName) {
+		valRequest req = valRequest.newBuilder().setLength(volume).build();
+		System.out.println("Changing volume");
+
+
+	
+		if(deviceName.equals("TV")) {
+			valResponse response = tv_blockingStub.changeVolume(req);
+				System.out.println("TV response"+response.getLength());
+		}else if(deviceName.equals("Speaker")) {
+			valResponse response = speaker_blockingStub.changeVolume(req);
+				System.out.println("Speaker Response"+response.getLength());
+		}
+
+	}
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 468, 507);
@@ -196,6 +255,30 @@ public class Main {
 		device_extra_op_text.setBounds(243, 392, 86, 20);
 		frame.getContentPane().add(device_extra_op_text);
 		device_extra_op_text.setText("Extra 1");
+		device_extra_op_text.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("UPDATE"+ arg0);
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("insertUPDATE"+ device_extra_op_text.getText());
+				int volume=Integer.parseInt(device_extra_op_text.getText());
+				changeVolume(volume,"TV");
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("removeUPDATE"+ arg0);
+			}
+		    // implement the methods
+		});
 		
         //Text4
 		device_extra_op2_text = new JTextField();
@@ -234,7 +317,7 @@ public class Main {
 			    		device_extra_op_text.setColumns(10);
 			    		device_extra_op_text.setBounds(243, 392, 86, 20);
 			    		frame.getContentPane().add(device_extra_op_text);
-			    		device_extra_op_text.setText("Extra 1");
+			    		device_extra_op_text.setText("Volume");
 			    		
 				        //Text4
 			    		device_extra_op2_text = new JTextField();
