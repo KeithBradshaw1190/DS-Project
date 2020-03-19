@@ -2,7 +2,7 @@ package Models;
 
 public class TV {
 	private String device,deviceName, currentChannel;
-	private boolean onOff;
+	private boolean on;
 	private int volume;
 	
 	public TV() {
@@ -37,12 +37,12 @@ public class TV {
 		this.currentChannel = currentChannel;
 	}
 
-	public boolean isOnOff() {
-		return onOff;
+	public boolean isOn() {
+		return on;
 	}
 
-	public void setOnOff(boolean onOff) {
-		this.onOff = onOff;
+	public void setOn(boolean on) {
+		this.on = on;
 	}
 
 
