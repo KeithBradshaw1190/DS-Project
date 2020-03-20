@@ -17,12 +17,14 @@ import javax.swing.event.DocumentListener;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
+import GRPC.TVServer;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.DS.keithproject.SmartHomeGRPC.*;
 import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceFutureStub;
 
 import io.grpc.stub.StreamObserver;
+import javax.swing.DefaultComboBoxModel;
 
 public class Main {
 
@@ -31,6 +33,22 @@ public class Main {
 	private JTextField device_onOff_text;
 	private JTextField device_extra_op_text;
 	private JTextField device_extra_op2_text;
+	
+//	private JTextField lamp_name_text;
+//	private JTextField lamp_onOff_text;
+//	private JTextField lamp_extra_op_text;
+//	private JTextField lamp_extra_op2_text;
+//	
+//	private JTextField speaker_name_text;
+//	private JTextField speaker_onOff_text;
+//	private JTextField speaker_extra_op_text;
+//	private JTextField speaker_extra_op2_text;
+//	
+//	private JTextField cc_name_text;
+//	private JTextField cc_onOff_text;
+//	private JTextField cc_extra_op_text;
+//	private JTextField cc_extra_op2_text;
+//	
 	//All Stubs and channels
 	private static TvServiceGrpc.TvServiceBlockingStub tv_blockingStub;
 	private static TvServiceGrpc.TvServiceStub tv_asyncStub;
@@ -43,6 +61,17 @@ public class Main {
 	private static SpeakerServiceGrpc.SpeakerServiceBlockingStub speaker_blockingStub;
 	private static SpeakerServiceGrpc.SpeakerServiceStub speaker_asyncStub;
 	private static SpeakerServiceGrpc.SpeakerServiceFutureStub speaker_futureStub;
+	private JTextField tvName_tf;
+	private JTextField tvStatus_tf;
+	private JTextField tvChannel_tf;
+	private JTextField speakerMute_tf;
+	private JTextField ccApp_tf;
+	private JTextField speakerName_tf;
+	private JTextField ccName_tf;
+	private JTextField lampName_tf;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
 	
 
 	
@@ -70,6 +99,7 @@ public class Main {
 	
 		initialize();
 		channels();
+		
 	}
 
 	/**
@@ -87,24 +117,10 @@ public class Main {
 		speaker_asyncStub = SpeakerServiceGrpc.newStub(speakerChannel);
 		speaker_futureStub = SpeakerServiceGrpc.newFutureStub(speakerChannel);
 	}
-	
-	
-	
-	public static void changeVolume(int volume, String deviceName) {
-		valRequest req = valRequest.newBuilder().setLength(volume).build();
-		System.out.println("Changing volume");
-
 
 	
-		if(deviceName.equals("TV")) {
-			valResponse response = tv_blockingStub.changeVolume(req);
-				System.out.println("TV response"+response.getLength());
-		}else if(deviceName.equals("Speaker")) {
-			valResponse response = speaker_blockingStub.changeVolume(req);
-				System.out.println("Speaker Response"+response.getLength());
-		}
+	
 
-	}
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 468, 507);
@@ -118,354 +134,342 @@ public class Main {
 		headLabel.setBounds(101, 11, 245, 14);
 		frame.getContentPane().add(headLabel);
 		
-		//Register Button
-		JButton register_btn = new JButton("Turn On Device Register");
-		register_btn.setBounds(83, 50, 150, 23);
-		frame.getContentPane().add(register_btn);
-		register_btn.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent event) {
-				System.out.println("We g");
-				}
-			});
+		JLabel controller_lbl = new JLabel("Device Controller");
+		controller_lbl.setFont(new Font("Tahoma", Font.BOLD, 15));
+		controller_lbl.setBounds(10, 64, 143, 14);
+		frame.getContentPane().add(controller_lbl);
 		
-		//Discover Button
-		JButton search = new JButton("Search For Devices");
-		search.setBounds(243, 50, 125, 23);
-		frame.getContentPane().add(search);
+		JLabel device_name_lbl = new JLabel("Device Name");
+		device_name_lbl.setBounds(70, 90, 83, 14);
+		frame.getContentPane().add(device_name_lbl);
 		
-		JLabel deviceRegLabel = new JLabel("Step One");
-		deviceRegLabel.setBounds(83, 36, 46, 14);
-		frame.getContentPane().add(deviceRegLabel);
+		JLabel device_status_lbl = new JLabel("Device Status");
+		device_status_lbl.setBounds(170, 90, 83, 14);
+		frame.getContentPane().add(device_status_lbl);
 		
-		JLabel searchLabel = new JLabel("Step Two");
-		searchLabel.setBounds(245, 36, 46, 14);
-		frame.getContentPane().add(searchLabel);
+		JLabel volume_lbl = new JLabel("Volume");
+		volume_lbl.setBounds(270, 90, 45, 14);
+		frame.getContentPane().add(volume_lbl);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 84, 414, 14);
-		frame.getContentPane().add(separator);
+		JLabel lblChannel = new JLabel("Channel");
+		lblChannel.setBounds(370, 90, 83, 14);
+		frame.getContentPane().add(lblChannel);
 		
-		JLabel devicesLabel = new JLabel("Device Information");
-		devicesLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		devicesLabel.setBounds(162, 95, 166, 14);
-		frame.getContentPane().add(devicesLabel);
+		JLabel device_name2_lblabel = new JLabel("Device Name");
+		device_name2_lblabel.setBounds(70, 135, 83, 14);
+		frame.getContentPane().add(device_name2_lblabel);
 		
-		JLabel TVLabel = new JLabel("TV");
-		TVLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		TVLabel.setBounds(10, 120, 46, 14);
-		frame.getContentPane().add(TVLabel);
+		JLabel device_status2_lbl = new JLabel("Device Status");
+		device_status2_lbl.setBounds(170, 135, 83, 14);
+		frame.getContentPane().add(device_status2_lbl);
 		
-		JLabel lampLabel = new JLabel("Lamp");
-		lampLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lampLabel.setBounds(242, 125, 46, 14);
-		frame.getContentPane().add(lampLabel);
-		
-		JLabel speakerLabel = new JLabel("Speaker");
-		speakerLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		speakerLabel.setBounds(10, 205, 66, 14);
-		frame.getContentPane().add(speakerLabel);
-		
-		JLabel chromecastLabel = new JLabel("Chromecast");
-		
-		chromecastLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		chromecastLabel.setBounds(242, 205, 86, 14);
-		frame.getContentPane().add(chromecastLabel);
-		
-		JLabel lblNewLabel = new JLabel("Device Name");
-		lblNewLabel.setBounds(10, 150, 66, 14);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JLabel lblCurrentChannel = new JLabel("Current Channel");
-		lblCurrentChannel.setBounds(10, 165, 86, 14);
-		frame.getContentPane().add(lblCurrentChannel);
-		
-		JLabel lblVolume = new JLabel("Volume");
-		lblVolume.setBounds(10, 180, 66, 14);
-		frame.getContentPane().add(lblVolume);
-		
-		JLabel lblOnoff = new JLabel("On/Off");
-		lblOnoff.setBounds(10, 135, 46, 14);
-		frame.getContentPane().add(lblOnoff);
-		
-		JLabel lblBrightness = new JLabel("Brightness");
-		lblBrightness.setBounds(242, 174, 86, 14);
-		frame.getContentPane().add(lblBrightness);
-		
-		JLabel label_2 = new JLabel("Device Name");
-		label_2.setBounds(242, 159, 66, 14);
-		frame.getContentPane().add(label_2);
-		
-		JLabel label_3 = new JLabel("On/Off");
-		label_3.setBounds(242, 144, 46, 14);
-		frame.getContentPane().add(label_3);
-		
-		JLabel label = new JLabel("Volume");
-		label.setBounds(10, 275, 66, 14);
-		frame.getContentPane().add(label);
+		JLabel volume2_lbl = new JLabel("Volume");
+		volume2_lbl.setBounds(270, 135, 45, 14);
+		frame.getContentPane().add(volume2_lbl);
 		
 		JLabel lblMute = new JLabel("Mute");
-		lblMute.setBounds(10, 260, 86, 14);
+		lblMute.setBounds(370, 135, 45, 14);
 		frame.getContentPane().add(lblMute);
 		
-		JLabel label_4 = new JLabel("Device Name");
-		label_4.setBounds(10, 245, 66, 14);
-		frame.getContentPane().add(label_4);
+		JLabel device_name3_lbl = new JLabel("Device Name");
+		device_name3_lbl.setBounds(70, 180, 83, 14);
+		frame.getContentPane().add(device_name3_lbl);
 		
-		JLabel label_5 = new JLabel("On/Off");
-		label_5.setBounds(10, 226, 46, 14);
-		frame.getContentPane().add(label_5);
+		JLabel volume_3_lbl = new JLabel("Volume");
+		volume_3_lbl.setBounds(270, 180, 45, 14);
+		frame.getContentPane().add(volume_3_lbl);
 		
-		JLabel label_1 = new JLabel("On/Off");
-		label_1.setBounds(243, 226, 46, 14);
+		JLabel lblApplication = new JLabel("Application");
+		lblApplication.setBounds(365, 180, 83, 14);
+		frame.getContentPane().add(lblApplication);
+		
+		JLabel device_status3_lbl = new JLabel("Device Status");
+		device_status3_lbl.setBounds(170, 180, 83, 14);
+		frame.getContentPane().add(device_status3_lbl);
+		
+		JLabel device_name4_lbl = new JLabel("Device Name");
+		device_name4_lbl.setBounds(70, 225, 83, 14);
+		frame.getContentPane().add(device_name4_lbl);
+		
+		JLabel device_status4_lbl = new JLabel("Device Status");
+		device_status4_lbl.setBounds(170, 225, 83, 14);
+		frame.getContentPane().add(device_status4_lbl);
+		
+		JLabel lblBrigtness = new JLabel("Brightness");
+		lblBrigtness.setBounds(270, 225, 56, 14);
+		frame.getContentPane().add(lblBrigtness);
+		
+		JButton tv_volumeUp_btn = new JButton("+");
+		tv_volumeUp_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		tv_volumeUp_btn.setBounds(290, 104, 36, 20);
+		frame.getContentPane().add(tv_volumeUp_btn);
+		
+		JButton tv_volumeDown_btn = new JButton("-");
+		tv_volumeDown_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		tv_volumeDown_btn.setBounds(254, 104, 36, 20);
+		frame.getContentPane().add(tv_volumeDown_btn);
+		
+		JButton speaker_volumeDown_btn = new JButton("-");
+		speaker_volumeDown_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		speaker_volumeDown_btn.setBounds(254, 149, 36, 20);
+		frame.getContentPane().add(speaker_volumeDown_btn);
+		
+		JButton speaker_volumeUp_btn = new JButton("+");
+		speaker_volumeUp_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		speaker_volumeUp_btn.setBounds(290, 149, 36, 20);
+		frame.getContentPane().add(speaker_volumeUp_btn);
+		
+		JButton cc_volumeUp_btn = new JButton("+");
+		cc_volumeUp_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		cc_volumeUp_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		cc_volumeUp_btn.setBounds(290, 194, 36, 20);
+		frame.getContentPane().add(cc_volumeUp_btn);
+		
+		JButton cc_volumeDown_btn = new JButton("-");
+		cc_volumeDown_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		cc_volumeDown_btn.setBounds(254, 194, 36, 20);
+		frame.getContentPane().add(cc_volumeDown_btn);
+		/////////////
+		//Text Fields
+		/////////////
+		tvName_tf = new JTextField();
+		tvName_tf.setBounds(56, 105, 86, 20);
+		frame.getContentPane().add(tvName_tf);
+		tvName_tf.setColumns(10);
+		tvName_tf.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+					System.out.println("changedUpdate "+tvName_tf.getText());
+				  }
+				  public void removeUpdate(DocumentEvent e) {
+					  changeDeviceName(tvName_tf.getText(),"TV");
+				  }
+				  public void insertUpdate(DocumentEvent e) {
+					  System.out.println("insertUpdate "+tvName_tf.getText());
+					  changeDeviceName(tvName_tf.getText(),"TV");
+
+				  }
+
+	
+				});
+		
+		
+		
+		
+		tvStatus_tf = new JTextField();
+		tvStatus_tf.setColumns(10);
+		tvStatus_tf.setBounds(160, 105, 86, 20);
+		frame.getContentPane().add(tvStatus_tf);
+		
+		tvChannel_tf = new JTextField();
+		tvChannel_tf.setColumns(10);
+		tvChannel_tf.setBounds(345, 105, 86, 20);
+		frame.getContentPane().add(tvChannel_tf);
+		
+		speakerMute_tf = new JTextField();
+		speakerMute_tf.setColumns(10);
+		speakerMute_tf.setBounds(345, 150, 86, 20);
+		frame.getContentPane().add(speakerMute_tf);
+		
+		ccApp_tf = new JTextField();
+		ccApp_tf.setColumns(10);
+		ccApp_tf.setBounds(345, 195, 86, 20);
+		frame.getContentPane().add(ccApp_tf);
+		
+		speakerName_tf = new JTextField();
+		speakerName_tf.setColumns(10);
+		speakerName_tf.setBounds(56, 150, 86, 20);
+		frame.getContentPane().add(speakerName_tf);
+		speakerName_tf.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+					
+				  }
+				  public void removeUpdate(DocumentEvent e) {
+					  changeDeviceName(speakerName_tf.getText(),"Speaker");
+				  }
+				  public void insertUpdate(DocumentEvent e) {
+				
+					  changeDeviceName(speakerName_tf.getText(),"Speaker");
+				  }
+
+	
+				});
+		
+		
+		
+		
+		ccName_tf = new JTextField();
+		ccName_tf.setColumns(10);
+		ccName_tf.setBounds(56, 194, 86, 20);
+		frame.getContentPane().add(ccName_tf);
+		ccName_tf.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+					
+				  }
+				  public void removeUpdate(DocumentEvent e) {
+					  changeDeviceName(ccName_tf.getText(),"Chromecast");
+				  }
+				  public void insertUpdate(DocumentEvent e) {
+					  System.out.println("insertUpdate "+tvName_tf.getText());
+					  changeDeviceName(ccName_tf.getText(),"Chromecast");
+				  }
+
+	
+				});
+		
+		
+		lampName_tf = new JTextField();
+		lampName_tf.setColumns(10);
+		lampName_tf.setBounds(56, 238, 86, 20);
+		frame.getContentPane().add(lampName_tf);
+		lampName_tf.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+					
+				  }
+				  public void removeUpdate(DocumentEvent e) {
+					  changeDeviceName(lampName_tf.getText(),"Lamp");
+				  }
+				  public void insertUpdate(DocumentEvent e) {
+					  changeDeviceName(lampName_tf.getText(),"Lamp");
+				  }
+
+	
+				});
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(158, 150, 86, 20);
+		frame.getContentPane().add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(158, 194, 86, 20);
+		frame.getContentPane().add(textField_6);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(160, 238, 86, 20);
+		frame.getContentPane().add(textField_7);
+		
+		JButton lamp_volumeDown_btn = new JButton("-");
+		lamp_volumeDown_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		lamp_volumeDown_btn.setBounds(254, 240, 36, 20);
+		frame.getContentPane().add(lamp_volumeDown_btn);
+		
+		JButton lamp_volumeUp_btn = new JButton("+");
+		lamp_volumeUp_btn.setFont(new Font("Tahoma", Font.BOLD, 5));
+		lamp_volumeUp_btn.setBounds(290, 240, 36, 20);
+		frame.getContentPane().add(lamp_volumeUp_btn);
+		
+		JLabel lblTv = new JLabel("TV");
+		lblTv.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblTv.setBounds(1, 105, 36, 14);
+		frame.getContentPane().add(lblTv);
+		
+		JLabel lblSpeaker = new JLabel("Speaker");
+		lblSpeaker.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblSpeaker.setBounds(1, 155, 45, 14);
+		frame.getContentPane().add(lblSpeaker);
+		
+		JLabel lblChromecast = new JLabel("ChromeC");
+		lblChromecast.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblChromecast.setBounds(1, 200, 56, 14);
+		frame.getContentPane().add(lblChromecast);
+		
+		JLabel lblLamp = new JLabel("Lamp");
+		lblLamp.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblLamp.setBounds(1, 241, 45, 14);
+		frame.getContentPane().add(lblLamp);
+		
+		JLabel label = new JLabel("TV");
+		label.setFont(new Font("Tahoma", Font.BOLD, 10));
+		label.setBounds(10, 313, 36, 14);
+		frame.getContentPane().add(label);
+		
+		JLabel label_1 = new JLabel("Speaker");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		label_1.setBounds(10, 357, 45, 14);
 		frame.getContentPane().add(label_1);
 		
-		JLabel label_6 = new JLabel("Device Name");
-		label_6.setBounds(243, 241, 66, 14);
-		frame.getContentPane().add(label_6);
+		JLabel label_2 = new JLabel("ChromeC");
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 10));
+		label_2.setBounds(10, 402, 56, 14);
+		frame.getContentPane().add(label_2);
 		
-		JLabel label_7 = new JLabel("Current Channel");
-		label_7.setBounds(243, 256, 86, 14);
-		frame.getContentPane().add(label_7);
+		JLabel label_3 = new JLabel("Lamp");
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 10));
+		label_3.setBounds(10, 443, 45, 14);
+		frame.getContentPane().add(label_3);
 		
-		JLabel label_8 = new JLabel("Volume");
-		label_8.setBounds(243, 271, 66, 14);
-		frame.getContentPane().add(label_8);
+		JLabel lblDeviceStatus = new JLabel("Device Info");
+		lblDeviceStatus.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDeviceStatus.setBounds(10, 288, 143, 14);
+		frame.getContentPane().add(lblDeviceStatus);
 		
-		String[] deviceNames = { "Select Device","TV", "Lamp", "Speaker", "Chromecast"};
-		JComboBox comboBox = new JComboBox(deviceNames);
-		//Text1
-		device_name_text = new JTextField();
-		device_name_text.setBounds(10, 392, 86, 20);
-		frame.getContentPane().add(device_name_text);
-		device_name_text.setColumns(10);
-		device_name_text.setText("TV");
+		JLabel tvInfo_Name = new JLabel("");
+		tvInfo_Name.setBounds(48, 313, 83, 14);
+		frame.getContentPane().add(tvInfo_Name);
 		
-        //Text2
+		JLabel tvInfo_Status = new JLabel("");
+		tvInfo_Status.setBounds(148, 313, 83, 14);
+		frame.getContentPane().add(tvInfo_Status);
+		
+		JLabel tvInfo_NameVolume = new JLabel("");
+		tvInfo_NameVolume.setBounds(248, 313, 45, 14);
+		frame.getContentPane().add(tvInfo_NameVolume);
+		
+		JLabel tvInfo_Channel = new JLabel("");
+		tvInfo_Channel.setBounds(348, 313, 83, 14);
+		frame.getContentPane().add(tvInfo_Channel);
 
-		device_onOff_text = new JTextField();
-		device_onOff_text.setColumns(10);
-		device_onOff_text.setBounds(124, 392, 86, 20);
-		frame.getContentPane().add(device_onOff_text);
-		device_onOff_text.setText("On");
 		
-        //Text3
-		device_extra_op_text = new JTextField();
-		device_extra_op_text.setColumns(10);
-		device_extra_op_text.setBounds(243, 392, 86, 20);
-		frame.getContentPane().add(device_extra_op_text);
-		device_extra_op_text.setText("Extra 1");
-		device_extra_op_text.getDocument().addDocumentListener(new DocumentListener() {
+	}
+	public static void changeDeviceName(String newName, String device) {
+		
+		System.out.println("New Name "+ newName);
+		System.out.println("Device "+ device);
 
-			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("UPDATE"+ arg0);
-				
-			}
+		StringRequest req = StringRequest.newBuilder().setText(newName).build();
+		System.out.println("Changing device Name");
 
-			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("insertUPDATE"+ device_extra_op_text.getText());
-				int volume=Integer.parseInt(device_extra_op_text.getText());
-				changeVolume(volume,"TV");
-			}
 
-			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("removeUPDATE"+ arg0);
-			}
-		    // implement the methods
-		});
-		
-        //Text4
-		device_extra_op2_text = new JTextField();
-		device_extra_op2_text.setColumns(10);
-		device_extra_op2_text.setBounds(356, 392, 86, 20);
-		frame.getContentPane().add(device_extra_op2_text);
-		device_extra_op2_text.setText("Extra 2");
-		
-		
+	//Handle device
+		if(device.equals("TV")) {
+			System.out.println("Device is a TV");
+
+			StringResponse response = tv_blockingStub.changeDeviceName(req);
+				System.out.println("TV response "+response.getText());
+		}else if(device.equals("Speaker")) {
+			System.out.println("Device is a Speaker");
+			StringResponse response = speaker_blockingStub.changeDeviceName(req);
+				System.out.println("Speaker Response "+response.getText());
+		}else if(device.equals("Lamp")) {
+			System.out.println("Device is a Lamp");
+			StringResponse response = lamp_blockingStub.changeDeviceName(req);
+			System.out.println("Lamp Response "+response.getText());
+		}else if(device.equals("Chromecast")) {
+			System.out.println("Device is a Chromecast");
+			//StringResponse response = cc_blockingStub.changeDeviceName(req);
+			//System.out.println("Chromecast Response "+response.getText());
+		}
+
+	}
 	
-	
-		comboBox.addActionListener(new ActionListener() {
+	public static void changeVolume(int volume, String device) {
+		valRequest req = valRequest.newBuilder().setLength(volume).build();
+		System.out.println("Changing volume");
 
-			public void actionPerformed(ActionEvent event) {
-				  JComboBox combo = (JComboBox) event.getSource();
-			        String selectedDevice = (String) combo.getSelectedItem();
-			 
-			        if (selectedDevice.equals("TV")) {
-			          //Text1
-			    		device_name_text = new JTextField();
-			    		device_name_text.setBounds(10, 392, 86, 20);
-			    		frame.getContentPane().add(device_name_text);
-			    		device_name_text.setColumns(10);
-			    		device_name_text.setText("TV");
-			    		
-				        //Text2
 
-			    		device_onOff_text = new JTextField();
-			    		device_onOff_text.setColumns(10);
-			    		device_onOff_text.setBounds(124, 392, 86, 20);
-			    		frame.getContentPane().add(device_onOff_text);
-			    		device_onOff_text.setText("On");
-			    		
-				        //Text3
-			    		device_extra_op_text = new JTextField();
-			    		device_extra_op_text.setColumns(10);
-			    		device_extra_op_text.setBounds(243, 392, 86, 20);
-			    		frame.getContentPane().add(device_extra_op_text);
-			    		device_extra_op_text.setText("Volume");
-			    		
-				        //Text4
-			    		device_extra_op2_text = new JTextField();
-			    		device_extra_op2_text.setColumns(10);
-			    		device_extra_op2_text.setBounds(356, 392, 86, 20);
-			    		frame.getContentPane().add(device_extra_op2_text);
-			    		device_extra_op2_text.setText("Extra 2");
-
-			            
-			            
-			        } else if (selectedDevice.equals("Lamp")) {
-				          //Text1
-					    		device_name_text = new JTextField();
-					    		device_name_text.setBounds(10, 392, 86, 20);
-					    		frame.getContentPane().add(device_name_text);
-					    		device_name_text.setColumns(10);
-					    		device_name_text.setText("Lamp");
-					    		
-						        //Text2
-
-					    		device_onOff_text = new JTextField();
-					    		device_onOff_text.setColumns(10);
-					    		device_onOff_text.setBounds(124, 392, 86, 20);
-					    		frame.getContentPane().add(device_onOff_text);
-					    		device_onOff_text.setText("On");
-					    		
-						        //Text3
-					    		device_extra_op_text = new JTextField();
-					    		device_extra_op_text.setColumns(10);
-					    		device_extra_op_text.setBounds(243, 392, 86, 20);
-					    		frame.getContentPane().add(device_extra_op_text);
-					    		device_extra_op_text.setText("Extra 1");
-					    		
-						        //Text4
-					    		device_extra_op2_text = new JTextField();
-					    		device_extra_op2_text.setColumns(10);
-					    		device_extra_op2_text.setBounds(356, 392, 86, 20);
-					    		frame.getContentPane().add(device_extra_op2_text);
-					    		device_extra_op2_text.setText("Extra 2");
-					    	}else if (selectedDevice.equals("Speaker")) {
-					    		//Text1
-					    		device_name_text = new JTextField();
-					    		device_name_text.setBounds(10, 392, 86, 20);
-					    		frame.getContentPane().add(device_name_text);
-					    		device_name_text.setColumns(10);
-					    		device_name_text.setText("Speaker");
-					    		
-						        //Text2
-
-					    		device_onOff_text = new JTextField();
-					    		device_onOff_text.setColumns(10);
-					    		device_onOff_text.setBounds(124, 392, 86, 20);
-					    		frame.getContentPane().add(device_onOff_text);
-					    		device_onOff_text.setText("On");
-					    		
-						        //Text3
-					    		device_extra_op_text = new JTextField();
-					    		device_extra_op_text.setColumns(10);
-					    		device_extra_op_text.setBounds(243, 392, 86, 20);
-					    		frame.getContentPane().add(device_extra_op_text);
-					    		device_extra_op_text.setText("Extra 1");
-					    		
-						        //Text4
-					    		device_extra_op2_text = new JTextField();
-					    		device_extra_op2_text.setColumns(10);
-					    		device_extra_op2_text.setBounds(356, 392, 86, 20);
-					    		frame.getContentPane().add(device_extra_op2_text);
-					    		device_extra_op2_text.setText("Extra 2");
-			        }else if (selectedDevice.equals("Chromecast")) {
-			        	//Text1
-			    		device_name_text = new JTextField();
-			    		device_name_text.setBounds(10, 392, 86, 20);
-			    		frame.getContentPane().add(device_name_text);
-			    		device_name_text.setColumns(10);
-			    		device_name_text.setText("Chromecast");
-			    		
-				        //Text2
-
-			    		device_onOff_text = new JTextField();
-			    		device_onOff_text.setColumns(10);
-			    		device_onOff_text.setBounds(124, 392, 86, 20);
-			    		frame.getContentPane().add(device_onOff_text);
-			    		device_onOff_text.setText("On");
-			    		
-				        //Text3
-			    		device_extra_op_text = new JTextField();
-			    		device_extra_op_text.setColumns(10);
-			    		device_extra_op_text.setBounds(243, 392, 86, 20);
-			    		frame.getContentPane().add(device_extra_op_text);
-			    		device_extra_op_text.setText("Extra 1");
-			    		
-				        //Text4
-			    		device_extra_op2_text = new JTextField();
-			    		device_extra_op2_text.setColumns(10);
-			    		device_extra_op2_text.setBounds(356, 392, 86, 20);
-			    		frame.getContentPane().add(device_extra_op2_text);
-			    		device_extra_op2_text.setText("Extra 2");
-			        }
-			    }
-				
-			});
-				
-		
-		comboBox.setBounds(59, 348, 99, 20);
-		frame.getContentPane().add(comboBox);
-		
-		JLabel lblDeviceController = new JLabel("Device Controller");
-		lblDeviceController.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblDeviceController.setBounds(10, 323, 166, 14);
-		frame.getContentPane().add(lblDeviceController);
-		
-		JLabel label_9 = new JLabel("Device");
-		label_9.setBounds(10, 352, 66, 14);
-		frame.getContentPane().add(label_9);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(172, 434, 125, 23);
-		frame.getContentPane().add(btnNewButton);
-		
-		JLabel device_name_label = new JLabel("Device Name");
-		device_name_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		device_name_label.setBounds(10, 379, 86, 14);
-		frame.getContentPane().add(device_name_label);
-		
-		JLabel device_onOff_label = new JLabel("Device Status");
-		device_onOff_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		device_onOff_label.setBounds(124, 379, 86, 14);
-		frame.getContentPane().add(device_onOff_label);
-		
-		JLabel device_extra_op_label = new JLabel("Channel");
-		device_extra_op_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		device_extra_op_label.setBounds(243, 379, 86, 14);
-		frame.getContentPane().add(device_extra_op_label);
-		
-		JLabel device_extra_op2_label = new JLabel("Volume");
-		device_extra_op2_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		device_extra_op2_label.setBounds(356, 379, 86, 14);
-		frame.getContentPane().add(device_extra_op2_label);
-		
-
-	
-
-	
-	
+	//Handle device to work with
+		if(device.equals("TV")) {
+			valResponse response = tv_blockingStub.changeVolume(req);
+				System.out.println("TV response"+response.getLength());
+		}else if(device.equals("Speaker")) {
+			valResponse response = speaker_blockingStub.changeVolume(req);
+				System.out.println("Speaker Response"+response.getLength());
+		}
 
 	}
 }

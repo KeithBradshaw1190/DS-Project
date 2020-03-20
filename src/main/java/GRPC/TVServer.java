@@ -33,6 +33,7 @@ public class TVServer extends TvServiceImplBase {
 		    		    
 		    server.awaitTermination();
 	 }
+
 	 @Override
 	 public void mute(BooleanReq request, StreamObserver<BooleanRes> responseObserver) {
 		 System.out.println("receiving mute for TV");
@@ -47,8 +48,9 @@ public class TVServer extends TvServiceImplBase {
 	}
 	 @Override
 	 public void changeVolume(valRequest request, StreamObserver<valResponse> responseObserver) {
-		 System.out.println("receiving volume for TV");
+
 		 int volume = request.getLength();
+		 System.out.println("receiving volume for TV"+ volume);
 		 if(volume<=100 && volume>=1) {
 			 myTv.setVolume(volume);
 		 }
@@ -59,13 +61,14 @@ public class TVServer extends TvServiceImplBase {
 	}
 	 @Override
 	 public void changeDeviceName(StringRequest request, StreamObserver<StringResponse> responseObserver) {
-		 
-		 System.out.println("receiving volume for TV");
 		 String name = request.getText();
+		 System.out.println("Changing device name to "+name);
+
 			 myTv.setDeviceName(name);
 		 
 		 StringResponse response = StringResponse.newBuilder().setText(name).build();
-		responseObserver.onNext(response);
+		 System.out.println("Response "+response.getText());
+		 responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	 }
 	 @Override
