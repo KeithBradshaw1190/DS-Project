@@ -2,12 +2,14 @@ package Models;
 
 public class Lamp {
 	private String device,deviceName;
-	private boolean onOff;
+	private boolean on;
 	private int brightness;
 	
 	public Lamp(){
 		this.device="Lamp";
-
+		this.on=true;
+		this.deviceName="Custom TV Name";
+		this.brightness=22;
 	}
 	
 	public String getDevice() {
@@ -28,12 +30,12 @@ public class Lamp {
 		this.deviceName = deviceName;
 	}
 
-	public boolean isOnOff() {
-		return onOff;
+	public boolean isOn() {
+		return on;
 	}
 
-	public void setOnOff(boolean onOff) {
-		this.onOff = onOff;
+	public void setOn(boolean on) {
+		this.on = on;
 	}
 
 	public int getBrightness() {

@@ -7,7 +7,10 @@ public class TV {
 	
 	public TV() {
 		this.device="TV";
-
+		this.on=true;
+		this.deviceName="Custom TV Name";
+		this.volume=28;
+		this.currentChannel=4;
 	}
 	
 	

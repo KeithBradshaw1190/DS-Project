@@ -62,7 +62,7 @@ public class TVServer extends TvServiceImplBase {
 	 @Override
 	 public void changeDeviceName(StringRequest request, StreamObserver<StringResponse> responseObserver) {
 		 String name = request.getText();
-		 System.out.println("Changing device name to "+name);
+		 System.out.println("Changing tv name to "+name);
 
 			 myTv.setDeviceName(name);
 		 
