@@ -102,7 +102,7 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	public void channels() {
-		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost", 1235).usePlaintext().build();
 		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", 50056).usePlaintext().build();
 		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", 50057).usePlaintext().build();
 		tv_blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);

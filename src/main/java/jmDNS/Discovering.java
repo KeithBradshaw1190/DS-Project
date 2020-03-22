@@ -8,10 +8,22 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 
 public class Discovering {
+	private static int TVPort;	
 
-    private static class SampleListener implements ServiceListener {
+
+	public int getTVPort() {
+		return TVPort;
+	}
+
+	public void setTVPort(int tVPort) {
+		TVPort = tVPort;
+	}
+
+
+    public static class SampleListener implements ServiceListener {
         public void serviceAdded(ServiceEvent event) {
-            System.out.println("Service added: " + event.getInfo());
+            System.out.println("Service addedPORT?: " + event.getInfo().getPort());
+
         }
 
         
@@ -22,6 +34,13 @@ public class Discovering {
         
         public void serviceResolved(ServiceEvent event) {
             System.out.println("Service resolved: " + event.getInfo());
+            System.out.println("Get Name: " + event.getName()+" PORT: "+event.getInfo().getPort());
+            if(event.getName().equals("TV")) {
+            	System.out.println("Found TV port: " + event.getInfo().getPort());
+            	TVPort =event.getInfo().getPort();
+            }
+          
+
         }
     }
 
@@ -42,4 +61,5 @@ public class Discovering {
             System.out.println(e.getMessage());
         }
     }
+  
 }
