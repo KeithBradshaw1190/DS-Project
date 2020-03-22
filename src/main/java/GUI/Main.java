@@ -466,8 +466,11 @@ public class Main {
 			public void stateChanged(ChangeEvent event) {
 				 if (tvOnOff_tgl.isSelected()){
 					 tvOnOff_tgl.setText("On");
+					 onOff(true,"TV");
 	            } else {
 	            	tvOnOff_tgl.setText("Off");
+					 onOff(false,"TV");
+
 	            }
 				
 			}
@@ -483,8 +486,11 @@ public class Main {
 			public void stateChanged(ChangeEvent event) {
 				 if (speakerOnOff_tgl.isSelected()){
 					 speakerOnOff_tgl.setText("On");
+					 onOff(true,"Speaker");
+
 	            } else {
 	            	speakerOnOff_tgl.setText("Off");
+	            	 onOff(false,"Speaker");
 	            }
 				
 			}
@@ -500,8 +506,12 @@ public class Main {
 			public void stateChanged(ChangeEvent event) {
 				 if (ccOnOff_tgl.isSelected()){
 					 ccOnOff_tgl.setText("On");
+					 onOff(true,"Chromecast");
+
 	            } else {
 	            	ccOnOff_tgl.setText("Off");
+					 onOff(true,"TV");
+
 	            }
 				
 			}
@@ -517,8 +527,10 @@ public class Main {
 			public void stateChanged(ChangeEvent event) {
 				 if (lampOnOff_tgl.isSelected()){
 					 lampOnOff_tgl.setText("On");
+					 onOff(true,"Lamp");
 	            } else {
 	            	lampOnOff_tgl.setText("Off");
+	            	onOff(false,"Lamp");
 	            }
 				
 			}
@@ -534,6 +546,7 @@ public class Main {
 				public void stateChanged(ChangeEvent event) {
 					 if (speakerMute_tgl.isSelected()){
 						 speakerMute_tgl.setText("Muted");
+						 
 		            } else {
 		            	speakerMute_tgl.setText("Mute");
 		            }
@@ -572,9 +585,18 @@ public class Main {
 		appList.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		appList.setBounds(345, 194, 86, 20);
 		frame.getContentPane().add(appList);
+		appList.addActionListener(new ActionListener()  {
+			
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox cb = (JComboBox)e.getSource();
+		        String appName = (String)cb.getSelectedItem();
+		        System.out.println(appName);
+		    }		
+	});
 		
-
-		
+		///////////////////
+		//GRPC Methods
+		///////////////////
 	}
 	public static void changeDeviceName(String newName, String device) {
 		
@@ -624,7 +646,7 @@ public class Main {
 		}else if(device.equals("Chromecast")) {
 			//valResponse response = speaker_blockingStub.changeVolume(req);
 			System.out.println("Chromecast Response");
-	}
+		}
 
 	}
 	public static void changeBrightness(int value) {
@@ -640,5 +662,24 @@ public class Main {
 		valResponse response =tv_blockingStub.changeChannel(req);
 		System.out.println("TV channel response"+response.getLength());
 
+	}
+	public static void onOff(boolean onOff, String device) {
+		BooleanReq req = BooleanReq.newBuilder().setMsg(onOff).build();
+		System.out.println("On Off");
+
+
+	//Handle device to work with
+		if(device.equals("TV")) {
+			BooleanRes response = tv_blockingStub.onOff(req);
+				System.out.println("TV response"+response.getMsg());
+		}else if(device.equals("Speaker")) {
+			BooleanRes response = speaker_blockingStub.onOff(req);
+				System.out.println("Speaker Response"+response.getMsg());
+		}else if(device.equals("Chromecast")) {
+			System.out.println("Chromecast Response not set up yet");
+		}else if(device.equals("Lamp")) {
+			BooleanRes response = lamp_blockingStub.onOff(req);
+			System.out.println("Lamp Response"+response.getMsg());
+		}
 	}
 }

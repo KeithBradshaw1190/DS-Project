@@ -33,6 +33,19 @@ public class TVServer extends TvServiceImplBase {
 		    		    
 		    server.awaitTermination();
 	 }
+	 //IF boolean is true -> On if false->Off
+	 @Override
+	 public void onOff(BooleanReq request, StreamObserver<BooleanRes> responseObserver) {
+		 System.out.println("receiving onOFF for TV ");
+		 Boolean onOff = request.getMsg();
+		 myTv.setOn(onOff);
+		 
+			
+		 BooleanRes response = BooleanRes.newBuilder().setMsg(onOff).build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+	}
 
 	 @Override
 	 public void mute(BooleanReq request, StreamObserver<BooleanRes> responseObserver) {
