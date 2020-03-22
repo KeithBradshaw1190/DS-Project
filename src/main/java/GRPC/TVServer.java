@@ -28,8 +28,9 @@ import Models.TV;
 public class TVServer extends TvServiceImplBase {
 	
 	 private static class SampleListener implements ServiceListener {
+		 
 	        public void serviceAdded(ServiceEvent event) {
-	            System.out.println("Service addedPORT?: " + event.getInfo().getPort());
+	            System.out.println("Service added: " + event.getInfo());
 
 	        }
 
@@ -42,18 +43,19 @@ public class TVServer extends TvServiceImplBase {
 	        public void serviceResolved(ServiceEvent event) {
 	            System.out.println("Service resolved: " + event.getInfo());
 	            System.out.println("Get Name: " + event.getName()+" PORT: "+event.getInfo().getPort());
+	            
+	            //Start GRPC server with discovered device
 	            if(event.getName().equals("TV")) {
 	            	System.out.println("Found TV port: " + event.getInfo().getPort());
-	            	//TVPort =event.getInfo().getPort();
 	       		 try {
 					startGRPC(event.getInfo().getPort());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 	            }
 	          
@@ -84,8 +86,6 @@ public class TVServer extends TvServiceImplBase {
 	 
 	 public static void startGRPC(int portNumber) throws IOException, InterruptedException {
 		 TVServer tvServer = new TVServer();
-		  
-		// portNumber= 50055;
 		    Server server = ServerBuilder.forPort(portNumber)
 		        .addService(tvServer)
 		        .build()

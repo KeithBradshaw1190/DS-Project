@@ -15,10 +15,10 @@ public class Registering {
     	TV myTV = new TV();
     	Lamp myLamp = new Lamp();
     	Chromecast myCC = new Chromecast();
-    	String description = "50055";
-    	 String server_port = "server_port"; // Max 9 chars
-    	    HashMap<String, byte[]> properties = new HashMap<String, byte[]>();
-    	    properties.put(server_port,description.getBytes());
+//    	String description = "50055";
+//    	 String server_port = "server_port"; // Max 9 chars
+//    	    HashMap<String, byte[]> properties = new HashMap<String, byte[]>();
+//    	    properties.put(server_port,description.getBytes());
     	
     	
     	
@@ -28,7 +28,7 @@ public class Registering {
 
             // Registering all services
             System.out.println("Registering");
-            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), 1234,0,0, true, properties);
+            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), 1234,"path=index.html");
             ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), 1235, "path=index.html");
             ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), 1236, "path=index.html");
             ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), 1237, "path=index.html");
