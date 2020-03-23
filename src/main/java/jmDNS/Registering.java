@@ -9,30 +9,35 @@ import javax.jmdns.ServiceInfo;
 import Models.*;
 public class Registering {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
     	
+
+    }
+	public void jmndsRegister(int speakerPort, int tvPort, int lampPort,int ccPort) throws InterruptedException {
+
     	Speaker mySpeaker = new Speaker();
     	TV myTV = new TV();
     	Lamp myLamp = new Lamp();
-    	Chromecast myCC = new Chromecast();    	
-    	
+    	Chromecast myCC = new Chromecast(); 
+
         try {
+        	
             // Create a JmDNS instance
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
 
             // Registering all services
             System.out.println("Registering");
-            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), 1234,"path=index.html");
-            ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), 1235, "path=index.html");
-            ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), 1236, "path=index.html");
-            ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), 1237, "path=index.html");
+            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), speakerPort,"path=index.html");
+            ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), tvPort, "path=index.html");
+            ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), lampPort, "path=index.html");
+            ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), ccPort, "path=index.html");
             
             jmdns.registerService(serviceSpeaker);
             jmdns.registerService(serviceTV);
             jmdns.registerService(serviceLamp);
             jmdns.registerService(serviceCC);
 
-
+            
             // Wait a bit
             Thread.sleep(25000);
 
@@ -42,5 +47,5 @@ public class Registering {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
+	}
 }

@@ -33,6 +33,7 @@ import org.DS.keithproject.SmartHomeGRPC.*;
 import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceFutureStub;
 
 import io.grpc.stub.StreamObserver;
+import jmDNS.Registering;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
@@ -108,8 +109,10 @@ public class Main {
 	 */
 	public Main() throws InterruptedException {
 		initialize();
-		jmndsRegister();
-		
+		Registering r = new Registering();
+		//Start Device Registry
+		r.jmndsRegister(speakerPort, tvPort, lampPort, ccPort);
+		channels();
 		
 	}
 
@@ -117,45 +120,10 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 *
 	 */
-	public void jmndsRegister() throws InterruptedException {
 
-    	Speaker mySpeaker = new Speaker();
-    	TV myTV = new TV();
-    	Lamp myLamp = new Lamp();
-    	Chromecast myCC = new Chromecast(); 
-
-        try {
-        	
-            // Create a JmDNS instance
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-
-            // Registering all services
-            System.out.println("Registering");
-            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), speakerPort,"path=index.html");
-            ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), tvPort, "path=index.html");
-            ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), lampPort, "path=index.html");
-            ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), ccPort, "path=index.html");
-            
-            jmdns.registerService(serviceSpeaker);
-            jmdns.registerService(serviceTV);
-            jmdns.registerService(serviceLamp);
-            jmdns.registerService(serviceCC);
-
-            //Call channels
-            channels();
-            // Wait a bit
-            Thread.sleep(25000);
-
-            // Unregister all services
-            jmdns.unregisterAllServices();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-	}
 	
 	public void channels() {
-		
+	
 		System.out.println("CHANNEL LAMP SERVER PORT "+lampPort);
 		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost",tvPort).usePlaintext().build();
 		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", lampPort).usePlaintext().build();
