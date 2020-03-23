@@ -28,7 +28,7 @@ import Models.Lamp;
 public class LampServer extends LampServiceImplBase {
 	private static final Logger logger = Logger.getLogger(LampServer.class.getName());
 	public Lamp myLamp = new Lamp();
-	
+	public static int lampPort;
 	 private static class SampleListener implements ServiceListener {
 		 
 	        public void serviceAdded(ServiceEvent event) {
@@ -50,7 +50,9 @@ public class LampServer extends LampServiceImplBase {
 	            if(event.getName().equals("Lamp")) {
 	            	System.out.println("Found Lamp port: " + event.getInfo().getPort());
 	       		 try {
+	       			 lampPort = event.getInfo().getPort();
 					startGRPC(event.getInfo().getPort());
+					
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -87,11 +89,19 @@ public class LampServer extends LampServiceImplBase {
 	        }
 	
 	 }
+	 public int getLampPort() {
+			return lampPort;
+		}
+
+		public void setLampPort(int lampPort) {
+			LampServer.lampPort = lampPort;
+		}
+
 	 
 	 public static void startGRPC(int portNumber) throws IOException, InterruptedException {
 		 
 		 LampServer lampServer = new LampServer();
-		   
+		 
 		    
 		    Server server = ServerBuilder.forPort(portNumber)
 		        .addService(lampServer)
@@ -103,8 +113,10 @@ public class LampServer extends LampServiceImplBase {
 			 
 		    server.awaitTermination();
 	 }
+	 
 
-	 //IF boolean is true -> On if false->Off
+	
+	//IF boolean is true -> On if false->Off
 	 @Override
 	 public void onOff(BooleanReq request, StreamObserver<BooleanRes> responseObserver) {
 		 System.out.println("receiving onOFF for Lamp ");

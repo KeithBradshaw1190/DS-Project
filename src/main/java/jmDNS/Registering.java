@@ -14,13 +14,7 @@ public class Registering {
     	Speaker mySpeaker = new Speaker();
     	TV myTV = new TV();
     	Lamp myLamp = new Lamp();
-    	Chromecast myCC = new Chromecast();
-//    	String description = "50055";
-//    	 String server_port = "server_port"; // Max 9 chars
-//    	    HashMap<String, byte[]> properties = new HashMap<String, byte[]>();
-//    	    properties.put(server_port,description.getBytes());
-    	
-    	
+    	Chromecast myCC = new Chromecast();    	
     	
         try {
             // Create a JmDNS instance

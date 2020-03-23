@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,13 +21,21 @@ import javax.swing.event.DocumentListener;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
+import GRPC.LampServer;
 import GRPC.TVServer;
+import Models.Chromecast;
+import Models.Lamp;
+import Models.Speaker;
+import Models.TV;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.DS.keithproject.SmartHomeGRPC.*;
 import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceFutureStub;
 
 import io.grpc.stub.StreamObserver;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JToggleButton;
 
@@ -69,6 +79,10 @@ public class Main {
 	private JTextField ccName_tf;
 	private JTextField lampName_tf;
 	
+	int speakerPort =1234;
+	int tvPort =1235;
+	int lampPort =1236;
+	int ccPort =1237;
 
 	
 	
@@ -90,21 +104,62 @@ public class Main {
 
 	/**
 	 * Create the application.
+	 * @throws InterruptedException 
 	 */
-	public Main() {
-	
+	public Main() throws InterruptedException {
 		initialize();
-		channels();
+		jmndsRegister();
+		
 		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 *
 	 */
+	public void jmndsRegister() throws InterruptedException {
+
+    	Speaker mySpeaker = new Speaker();
+    	TV myTV = new TV();
+    	Lamp myLamp = new Lamp();
+    	Chromecast myCC = new Chromecast(); 
+
+        try {
+        	
+            // Create a JmDNS instance
+            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+
+            // Registering all services
+            System.out.println("Registering");
+            ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), speakerPort,"path=index.html");
+            ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), tvPort, "path=index.html");
+            ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), lampPort, "path=index.html");
+            ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), ccPort, "path=index.html");
+            
+            jmdns.registerService(serviceSpeaker);
+            jmdns.registerService(serviceTV);
+            jmdns.registerService(serviceLamp);
+            jmdns.registerService(serviceCC);
+
+            //Call channels
+            channels();
+            // Wait a bit
+            Thread.sleep(25000);
+
+            // Unregister all services
+            jmdns.unregisterAllServices();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+	}
+	
 	public void channels() {
-		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost", 1235).usePlaintext().build();
-		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", 50056).usePlaintext().build();
-		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", 50057).usePlaintext().build();
+		
+		System.out.println("CHANNEL LAMP SERVER PORT "+lampPort);
+		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost",tvPort).usePlaintext().build();
+		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", lampPort).usePlaintext().build();
+		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", speakerPort).usePlaintext().build();
 		tv_blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
 		tv_asyncStub = TvServiceGrpc.newStub(tvChannel);
 		tv_futureStub = TvServiceGrpc.newFutureStub(tvChannel);
