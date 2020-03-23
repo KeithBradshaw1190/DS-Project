@@ -70,8 +70,12 @@ public class LampServer extends LampServiceImplBase {
 	
 	
 
-	 public static void main(String[] args) throws IOException, InterruptedException {
+	 public static void main(String[] args) throws IOException, InterruptedException  {
 		 
+		 startDiscovery();
+	
+	 }
+	 public static void startDiscovery() throws IOException, InterruptedException {
 		 try {
 	            // Create a JmDNS instance
 	            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -87,7 +91,6 @@ public class LampServer extends LampServiceImplBase {
 	        } catch (IOException e) {
 	            System.out.println(e.getMessage());
 	        }
-	
 	 }
 	 public int getLampPort() {
 			return lampPort;

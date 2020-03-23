@@ -39,6 +39,7 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JToggleButton;
+import java.awt.Color;
 
 public class Main {
 
@@ -79,7 +80,8 @@ public class Main {
 	private JTextField speakerName_tf;
 	private JTextField ccName_tf;
 	private JTextField lampName_tf;
-	
+	public  JLabel tvInfo_name ;
+
 	int speakerPort =1234;
 	int tvPort =1235;
 	int lampPort =1236;
@@ -106,25 +108,33 @@ public class Main {
 	/**
 	 * Create the application.
 	 * @throws InterruptedException 
+	 * @throws IOException 
 	 */
-	public Main() throws InterruptedException {
+	public Main() throws InterruptedException, IOException {
 		initialize();
 		Registering r = new Registering();
-		//Start Device Registry
+		//Start Device Registry, GRPC servers and channels
 		r.jmndsRegister(speakerPort, tvPort, lampPort, ccPort);
+		startGRPCServers();
 		channels();
-		
+		r.unRegister();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws InterruptedException 
+	 * @throws IOException 
 	 *
 	 */
-
+public void startGRPCServers() throws IOException, InterruptedException {
+	TVServer.startDiscovery();
+	
+	
+}
 	
 	public void channels() {
 	
-		System.out.println("CHANNEL LAMP SERVER PORT "+lampPort);
+		System.out.println("CHANNELS STARTING");
 		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost",tvPort).usePlaintext().build();
 		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", lampPort).usePlaintext().build();
 		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", speakerPort).usePlaintext().build();
@@ -146,7 +156,8 @@ public class Main {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 468, 507);
+		frame.getContentPane().setBackground(Color.WHITE);
+		frame.setBounds(100, 100, 468, 525);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -166,8 +177,8 @@ public class Main {
 		device_name_lbl.setBounds(70, 90, 83, 14);
 		frame.getContentPane().add(device_name_lbl);
 		
-		JLabel device_status_lbl = new JLabel("Device Status");
-		device_status_lbl.setBounds(170, 90, 83, 14);
+		JLabel device_status_lbl = new JLabel("Step One");
+		device_status_lbl.setBounds(84, 36, 83, 14);
 		frame.getContentPane().add(device_status_lbl);
 		
 		JLabel volume_lbl = new JLabel("Volume");
@@ -455,29 +466,13 @@ public class Main {
 		
 		JLabel label_3 = new JLabel("Lamp");
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_3.setBounds(10, 443, 45, 14);
+		label_3.setBounds(10, 437, 45, 14);
 		frame.getContentPane().add(label_3);
 		
 		JLabel lblDeviceStatus = new JLabel("Device Info");
 		lblDeviceStatus.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblDeviceStatus.setBounds(10, 288, 143, 14);
 		frame.getContentPane().add(lblDeviceStatus);
-		
-		JLabel tvInfo_Name = new JLabel("");
-		tvInfo_Name.setBounds(48, 313, 83, 14);
-		frame.getContentPane().add(tvInfo_Name);
-		
-		JLabel tvInfo_Status = new JLabel("");
-		tvInfo_Status.setBounds(148, 313, 83, 14);
-		frame.getContentPane().add(tvInfo_Status);
-		
-		JLabel tvInfo_NameVolume = new JLabel("");
-		tvInfo_NameVolume.setBounds(248, 313, 45, 14);
-		frame.getContentPane().add(tvInfo_NameVolume);
-		
-		JLabel tvInfo_Channel = new JLabel("");
-		tvInfo_Channel.setBounds(348, 313, 83, 14);
-		frame.getContentPane().add(tvInfo_Channel);
 		
 		final JToggleButton tvOnOff_tgl = new JToggleButton("On");
 		tvOnOff_tgl.setSelected(true);
@@ -608,6 +603,75 @@ public class Main {
 		appList.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		appList.setBounds(345, 194, 86, 20);
 		frame.getContentPane().add(appList);
+		
+
+		
+		JLabel label_4 = new JLabel("Device Name");
+		label_4.setBounds(163, 90, 83, 14);
+		frame.getContentPane().add(label_4);
+		
+		JLabel label_9 = new JLabel("Device Name");
+		label_9.setBounds(20, 377, 83, 14);
+		frame.getContentPane().add(label_9);
+		
+		JLabel label_10 = new JLabel("Device Status");
+		label_10.setBounds(120, 377, 83, 14);
+		frame.getContentPane().add(label_10);
+		
+		JLabel label_11 = new JLabel("Volume");
+		label_11.setBounds(220, 377, 48, 14);
+		frame.getContentPane().add(label_11);
+		
+		JLabel label_12 = new JLabel("Mute");
+		label_12.setBounds(320, 377, 38, 14);
+		frame.getContentPane().add(label_12);
+		tvInfo_name= new JLabel("Device Name");
+		tvInfo_name.setBounds(20, 332, 83, 14);
+		frame.getContentPane().add(tvInfo_name);
+		
+		JLabel tvInfo_status = new JLabel("Device Status");
+		tvInfo_status.setBounds(120, 332, 83, 14);
+		frame.getContentPane().add(tvInfo_status);
+		
+		JLabel tvInfo_volume = new JLabel("Volume");
+		tvInfo_volume.setBounds(220, 332, 48, 14);
+		frame.getContentPane().add(tvInfo_volume);
+		
+		JLabel tvInfo_mute = new JLabel("Mute");
+		tvInfo_mute.setBounds(320, 332, 38, 14);
+		frame.getContentPane().add(tvInfo_mute);
+		
+		JLabel label_5 = new JLabel("Device Name");
+		label_5.setBounds(20, 418, 83, 14);
+		frame.getContentPane().add(label_5);
+		
+		JLabel label_6 = new JLabel("Device Status");
+		label_6.setBounds(120, 418, 83, 14);
+		frame.getContentPane().add(label_6);
+		
+		JLabel label_7 = new JLabel("Volume");
+		label_7.setBounds(220, 418, 48, 14);
+		frame.getContentPane().add(label_7);
+		
+		JLabel label_8 = new JLabel("Mute");
+		label_8.setBounds(320, 418, 38, 14);
+		frame.getContentPane().add(label_8);
+		
+		JLabel label_17 = new JLabel("Device Name");
+		label_17.setBounds(20, 458, 83, 14);
+		frame.getContentPane().add(label_17);
+		
+		JLabel label_18 = new JLabel("Device Status");
+		label_18.setBounds(120, 458, 83, 14);
+		frame.getContentPane().add(label_18);
+		
+		JLabel label_19 = new JLabel("Volume");
+		label_19.setBounds(220, 458, 48, 14);
+		frame.getContentPane().add(label_19);
+		
+		JLabel label_20 = new JLabel("Mute");
+		label_20.setBounds(320, 458, 38, 14);
+		frame.getContentPane().add(label_20);
 		appList.addActionListener(new ActionListener()  {
 			
 		    public void actionPerformed(ActionEvent e) {
@@ -621,8 +685,8 @@ public class Main {
 		//GRPC Methods
 		///////////////////
 	}
-	public static void changeDeviceName(String newName, String device) {
-		
+	public void changeDeviceName(String newName, String device) {
+
 		System.out.println("New Name "+ newName);
 		System.out.println("Device "+ device);
 
@@ -635,6 +699,8 @@ public class Main {
 			System.out.println("Device is a TV");
 			StringResponse response = tv_blockingStub.changeDeviceName(req);
 				System.out.println("TV response "+response.getText());
+		        tvInfo_name.setText(response.getText());
+
 		}
 		else if(device.equals("Speaker")) {
 			System.out.println("Device is a Speaker");

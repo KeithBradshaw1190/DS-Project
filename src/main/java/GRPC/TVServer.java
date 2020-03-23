@@ -48,6 +48,7 @@ public class TVServer extends TvServiceImplBase {
 	            if(event.getName().equals("TV")) {
 	            	System.out.println("Found TV port: " + event.getInfo().getPort());
 	       		 try {
+	       			System.out.println("STARTING TV GRPC SERVER");
 					startGRPC(event.getInfo().getPort());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -66,6 +67,9 @@ public class TVServer extends TvServiceImplBase {
 	private static final Logger logger = Logger.getLogger(TVServer.class.getName());
 	public TV myTv = new TV();
 	 public static void main(String[] args) throws IOException, InterruptedException {
+		startDiscovery();
+	    }
+	 public static void startDiscovery() throws IOException, InterruptedException {
 		 try {
 	            // Create a JmDNS instance
 	            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -81,8 +85,7 @@ public class TVServer extends TvServiceImplBase {
 	        } catch (IOException e) {
 	            System.out.println(e.getMessage());
 	        }
-	    }
-	  	 
+	 } 
 	 
 	 public static void startGRPC(int portNumber) throws IOException, InterruptedException {
 		 TVServer tvServer = new TVServer();

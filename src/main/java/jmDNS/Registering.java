@@ -2,15 +2,18 @@ package jmDNS;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 import Models.*;
 public class Registering {
+    public static JmDNS jmdns;
 
-    public static void main(String[] args)  {
-    	
+    public static void main(String[] args) throws UnknownHostException, IOException  {
+      	
+        // Create a JmDNS instance
 
     }
 	public void jmndsRegister(int speakerPort, int tvPort, int lampPort,int ccPort) throws InterruptedException {
@@ -23,8 +26,8 @@ public class Registering {
         try {
         	
             // Create a JmDNS instance
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-
+           // JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+        	 jmdns= JmDNS.create(InetAddress.getLocalHost());
             // Registering all services
             System.out.println("Registering");
             ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), speakerPort,"path=index.html");
@@ -39,13 +42,20 @@ public class Registering {
 
             
             // Wait a bit
-            Thread.sleep(25000);
+          //  Thread.sleep(25000);
 
             // Unregister all services
-            jmdns.unregisterAllServices();
+           // jmdns.unregisterAllServices();
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 	}
+	public void unRegister() {
+        System.out.println("Un-registering");
+
+         jmdns.unregisterAllServices();
+
+	}
+
 }
