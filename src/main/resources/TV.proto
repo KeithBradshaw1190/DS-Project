@@ -10,9 +10,9 @@ package SmartHomeGRPC;
 
 service TvService {
   
-  rpc changeVolume(valRequest) returns (valResponse) {}
+  rpc changeVolume(valRequest) returns (stream valResponse) {}
   
-  rpc mute(BooleanReq) returns (BooleanRes) {}
+  rpc mute(BooleanReq) returns (valResponse) {}
   
   rpc onOff(BooleanReq) returns (BooleanRes) {}
   

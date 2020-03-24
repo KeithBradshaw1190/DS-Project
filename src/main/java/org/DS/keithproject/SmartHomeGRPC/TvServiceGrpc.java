@@ -34,7 +34,7 @@ public final class TvServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "changeVolume",
       requestType = org.DS.keithproject.SmartHomeGRPC.valRequest.class,
       responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod() {
     io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod;
@@ -43,7 +43,7 @@ public final class TvServiceGrpc {
         if ((getChangeVolumeMethod = TvServiceGrpc.getChangeVolumeMethod) == null) {
           TvServiceGrpc.getChangeVolumeMethod = getChangeVolumeMethod = 
               io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.TvService", "changeVolume"))
               .setSampledToLocalTracing(true)
@@ -60,21 +60,21 @@ public final class TvServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-      org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod;
+      org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "mute",
       requestType = org.DS.keithproject.SmartHomeGRPC.BooleanReq.class,
-      responseType = org.DS.keithproject.SmartHomeGRPC.BooleanRes.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-      org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod() {
-    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod;
+      org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod;
     if ((getMuteMethod = TvServiceGrpc.getMuteMethod) == null) {
       synchronized (TvServiceGrpc.class) {
         if ((getMuteMethod = TvServiceGrpc.getMuteMethod) == null) {
           TvServiceGrpc.getMuteMethod = getMuteMethod = 
-              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.BooleanRes>newBuilder()
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.TvService", "mute"))
@@ -82,7 +82,7 @@ public final class TvServiceGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.DS.keithproject.SmartHomeGRPC.BooleanReq.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.DS.keithproject.SmartHomeGRPC.BooleanRes.getDefaultInstance()))
+                  org.DS.keithproject.SmartHomeGRPC.valResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("mute"))
                   .build();
           }
@@ -224,7 +224,7 @@ public final class TvServiceGrpc {
     /**
      */
     public void mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request,
-        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes> responseObserver) {
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getMuteMethod(), responseObserver);
     }
 
@@ -253,7 +253,7 @@ public final class TvServiceGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getChangeVolumeMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.valRequest,
                 org.DS.keithproject.SmartHomeGRPC.valResponse>(
@@ -263,7 +263,7 @@ public final class TvServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-                org.DS.keithproject.SmartHomeGRPC.BooleanRes>(
+                org.DS.keithproject.SmartHomeGRPC.valResponse>(
                   this, METHODID_MUTE)))
           .addMethod(
             getOnOffMethod(),
@@ -312,14 +312,14 @@ public final class TvServiceGrpc {
      */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
     public void mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request,
-        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes> responseObserver) {
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getMuteMethod(), getCallOptions()), request, responseObserver);
     }
@@ -369,14 +369,15 @@ public final class TvServiceGrpc {
 
     /**
      */
-    public org.DS.keithproject.SmartHomeGRPC.valResponse changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
+        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), getChangeVolumeMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public org.DS.keithproject.SmartHomeGRPC.BooleanRes mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
+    public org.DS.keithproject.SmartHomeGRPC.valResponse mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return blockingUnaryCall(
           getChannel(), getMuteMethod(), getCallOptions(), request);
     }
@@ -423,15 +424,7 @@ public final class TvServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
-        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.BooleanRes> mute(
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> mute(
         org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return futureUnaryCall(
           getChannel().newCall(getMuteMethod(), getCallOptions()), request);
@@ -491,7 +484,7 @@ public final class TvServiceGrpc {
           break;
         case METHODID_MUTE:
           serviceImpl.mute((org.DS.keithproject.SmartHomeGRPC.BooleanReq) request,
-              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes>) responseObserver);
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse>) responseObserver);
           break;
         case METHODID_ON_OFF:
           serviceImpl.onOff((org.DS.keithproject.SmartHomeGRPC.BooleanReq) request,

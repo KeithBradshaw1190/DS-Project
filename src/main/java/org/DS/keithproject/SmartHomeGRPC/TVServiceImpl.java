@@ -58,17 +58,18 @@ public final class TVServiceImpl {
       "xt\030\001 \001(\t\"\031\n\nBooleanReq\022\013\n\003msg\030\002 \001(\010\"\031\n\nB" +
       "ooleanRes\022\013\n\003msg\030\002 \001(\010\"\034\n\nvalRequest\022\016\n\006" +
       "length\030\003 \001(\005\"\035\n\013valResponse\022\016\n\006length\030\003 " +
-      "\001(\0052\362\002\n\tTvService\022G\n\014changeVolume\022\031.Smar" +
+      "\001(\0052\365\002\n\tTvService\022I\n\014changeVolume\022\031.Smar" +
       "tHomeGRPC.valRequest\032\032.SmartHomeGRPC.val" +
-      "Response\"\000\022>\n\004mute\022\031.SmartHomeGRPC.Boole" +
-      "anReq\032\031.SmartHomeGRPC.BooleanRes\"\000\022?\n\005on" +
-      "Off\022\031.SmartHomeGRPC.BooleanReq\032\031.SmartHo" +
-      "meGRPC.BooleanRes\"\000\022Q\n\020changeDeviceName\022" +
-      "\034.SmartHomeGRPC.StringRequest\032\035.SmartHom" +
-      "eGRPC.StringResponse\"\000\022H\n\rchangeChannel\022" +
-      "\031.SmartHomeGRPC.valRequest\032\032.SmartHomeGR" +
-      "PC.valResponse\"\000B4\n!org.DS.keithproject." +
-      "SmartHomeGRPCB\rTVServiceImplP\001b\006proto3"
+      "Response\"\0000\001\022?\n\004mute\022\031.SmartHomeGRPC.Boo" +
+      "leanReq\032\032.SmartHomeGRPC.valResponse\"\000\022?\n" +
+      "\005onOff\022\031.SmartHomeGRPC.BooleanReq\032\031.Smar" +
+      "tHomeGRPC.BooleanRes\"\000\022Q\n\020changeDeviceNa" +
+      "me\022\034.SmartHomeGRPC.StringRequest\032\035.Smart" +
+      "HomeGRPC.StringResponse\"\000\022H\n\rchangeChann" +
+      "el\022\031.SmartHomeGRPC.valRequest\032\032.SmartHom" +
+      "eGRPC.valResponse\"\000B4\n!org.DS.keithproje" +
+      "ct.SmartHomeGRPCB\rTVServiceImplP\001b\006proto" +
+      "3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

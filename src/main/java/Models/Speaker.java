@@ -2,7 +2,7 @@ package Models;
 
 public class Speaker {
 private String device,deviceName;
-private boolean onOff, mute;
+private boolean On, mute;
 private int volume;
 
 public Speaker() {
@@ -27,12 +27,12 @@ public void setDeviceName(String deviceName) {
 	this.deviceName = deviceName;
 }
 
-public boolean isOnOff() {
-	return onOff;
+public boolean isOn() {
+	return On;
 }
 
-public void setOnOff(boolean onOff) {
-	this.onOff = onOff;
+public void setOn(boolean On) {
+	this.On = On;
 }
 
 public boolean isMute() {

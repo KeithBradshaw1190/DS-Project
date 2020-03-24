@@ -58,16 +58,16 @@ public final class SpeakerServiceImpl {
       "\014\n\004text\030\001 \001(\t\"\031\n\nBooleanReq\022\013\n\003msg\030\002 \001(\010" +
       "\"\031\n\nBooleanRes\022\013\n\003msg\030\002 \001(\010\"\034\n\nvalReques" +
       "t\022\016\n\006length\030\003 \001(\005\"\035\n\013valResponse\022\016\n\006leng" +
-      "th\030\003 \001(\0052\255\002\n\016SpeakerService\022G\n\014changeVol" +
+      "th\030\003 \001(\0052\257\002\n\016SpeakerService\022I\n\014changeVol" +
       "ume\022\031.SmartHomeGRPC.valRequest\032\032.SmartHo" +
-      "meGRPC.valResponse\"\000\022>\n\004mute\022\031.SmartHome" +
-      "GRPC.BooleanReq\032\031.SmartHomeGRPC.BooleanR" +
-      "es\"\000\022?\n\005onOff\022\031.SmartHomeGRPC.BooleanReq" +
-      "\032\031.SmartHomeGRPC.BooleanRes\"\000\022Q\n\020changeD" +
-      "eviceName\022\034.SmartHomeGRPC.StringRequest\032" +
-      "\035.SmartHomeGRPC.StringResponse\"\000B9\n!org." +
-      "DS.keithproject.SmartHomeGRPCB\022SpeakerSe" +
-      "rviceImplP\001b\006proto3"
+      "meGRPC.valResponse\"\0000\001\022>\n\004mute\022\031.SmartHo" +
+      "meGRPC.BooleanReq\032\031.SmartHomeGRPC.Boolea" +
+      "nRes\"\000\022?\n\005onOff\022\031.SmartHomeGRPC.BooleanR" +
+      "eq\032\031.SmartHomeGRPC.BooleanRes\"\000\022Q\n\020chang" +
+      "eDeviceName\022\034.SmartHomeGRPC.StringReques" +
+      "t\032\035.SmartHomeGRPC.StringResponse\"\000B9\n!or" +
+      "g.DS.keithproject.SmartHomeGRPCB\022Speaker" +
+      "ServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

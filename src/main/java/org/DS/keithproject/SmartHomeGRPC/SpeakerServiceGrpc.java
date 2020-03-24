@@ -34,7 +34,7 @@ public final class SpeakerServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "changeVolume",
       requestType = org.DS.keithproject.SmartHomeGRPC.valRequest.class,
       responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod() {
     io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod;
@@ -43,7 +43,7 @@ public final class SpeakerServiceGrpc {
         if ((getChangeVolumeMethod = SpeakerServiceGrpc.getChangeVolumeMethod) == null) {
           SpeakerServiceGrpc.getChangeVolumeMethod = getChangeVolumeMethod = 
               io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.SpeakerService", "changeVolume"))
               .setSampledToLocalTracing(true)
@@ -214,7 +214,7 @@ public final class SpeakerServiceGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getChangeVolumeMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.valRequest,
                 org.DS.keithproject.SmartHomeGRPC.valResponse>(
@@ -266,7 +266,7 @@ public final class SpeakerServiceGrpc {
      */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -315,8 +315,9 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
-    public org.DS.keithproject.SmartHomeGRPC.valResponse changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
+        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), getChangeVolumeMethod(), getCallOptions(), request);
     }
 
@@ -358,14 +359,6 @@ public final class SpeakerServiceGrpc {
     protected SpeakerServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new SpeakerServiceFutureStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
-        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request);
     }
 
     /**

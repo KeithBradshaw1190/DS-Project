@@ -34,7 +34,7 @@ public final class LampServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "changeBrightness",
       requestType = org.DS.keithproject.SmartHomeGRPC.valRequest.class,
       responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeBrightnessMethod() {
     io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeBrightnessMethod;
@@ -43,7 +43,7 @@ public final class LampServiceGrpc {
         if ((getChangeBrightnessMethod = LampServiceGrpc.getChangeBrightnessMethod) == null) {
           LampServiceGrpc.getChangeBrightnessMethod = getChangeBrightnessMethod = 
               io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.LampService", "changeBrightness"))
               .setSampledToLocalTracing(true)
@@ -175,7 +175,7 @@ public final class LampServiceGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getChangeBrightnessMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.valRequest,
                 org.DS.keithproject.SmartHomeGRPC.valResponse>(
@@ -220,7 +220,7 @@ public final class LampServiceGrpc {
      */
     public void changeBrightness(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getChangeBrightnessMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -261,8 +261,9 @@ public final class LampServiceGrpc {
 
     /**
      */
-    public org.DS.keithproject.SmartHomeGRPC.valResponse changeBrightness(org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeBrightness(
+        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), getChangeBrightnessMethod(), getCallOptions(), request);
     }
 
@@ -297,14 +298,6 @@ public final class LampServiceGrpc {
     protected LampServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new LampServiceFutureStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> changeBrightness(
-        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getChangeBrightnessMethod(), getCallOptions()), request);
     }
 
     /**

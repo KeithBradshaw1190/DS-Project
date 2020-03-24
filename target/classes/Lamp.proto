@@ -11,7 +11,7 @@ package SmartHomeGRPC;
 
 service LampService {
   
-  rpc changeBrightness(valRequest) returns (valResponse) {}
+  rpc changeBrightness(valRequest) returns (stream valResponse) {}
   
   rpc onOff(BooleanReq) returns (BooleanRes) {}
   

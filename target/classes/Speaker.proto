@@ -10,7 +10,7 @@ package SmartHomeGRPC;
 
 service SpeakerService {
   
-  rpc changeVolume(valRequest) returns (valResponse) {}
+  rpc changeVolume(valRequest) returns (stream valResponse) {}
   
   rpc mute(BooleanReq) returns (BooleanRes) {}
   

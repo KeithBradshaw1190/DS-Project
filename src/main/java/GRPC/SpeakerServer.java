@@ -10,6 +10,7 @@ import javax.jmdns.ServiceListener;
 
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
+import org.DS.keithproject.SmartHomeGRPC.SpeakerServiceGrpc.SpeakerServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.StringRequest;
 import org.DS.keithproject.SmartHomeGRPC.StringResponse;
 import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
@@ -23,9 +24,10 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import jmDNS.Discovering;
 import jmDNS.Discovering.SampleListener;
+import Models.Speaker;
 import Models.TV;
 
-public class TVServer extends TvServiceImplBase {
+public class SpeakerServer extends SpeakerServiceImplBase {
 	
 	 private static class SampleListener implements ServiceListener {
 		 
@@ -45,10 +47,10 @@ public class TVServer extends TvServiceImplBase {
 	            System.out.println("Get Name: " + event.getName()+" PORT: "+event.getInfo().getPort());
 	            
 	            //Start GRPC server with discovered device
-	            if(event.getName().equals("TV")) {
-	            	System.out.println("Found TV port: " + event.getInfo().getPort());
+	            if(event.getName().equals("Speaker")) {
+	            	System.out.println("Found Speaker port: " + event.getInfo().getPort());
 	       		 try {
-	       			System.out.println("STARTING TV GRPC SERVER");
+	       			System.out.println("STARTING SPEAKER GRPC SERVER");
 					startGRPC(event.getInfo().getPort());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -64,8 +66,8 @@ public class TVServer extends TvServiceImplBase {
 	        }
 	    }
 	
-	private static final Logger logger = Logger.getLogger(TVServer.class.getName());
-	public TV myTv = new TV();
+	private static final Logger logger = Logger.getLogger(SpeakerServer.class.getName());
+	public Speaker mySpeaker = new Speaker();
 	 public static void main(String[] args) throws IOException, InterruptedException {
 		startDiscovery();
 	    }
@@ -88,9 +90,9 @@ public class TVServer extends TvServiceImplBase {
 	 } 
 	 
 	 public static void startGRPC(int portNumber) throws IOException, InterruptedException {
-		 TVServer tvServer = new TVServer();
+		 SpeakerServer speakerServer = new SpeakerServer();
 		    Server server = ServerBuilder.forPort(portNumber)
-		        .addService(tvServer)
+		        .addService(speakerServer)
 		        .build()
 		        .start();
 		    
@@ -102,9 +104,9 @@ public class TVServer extends TvServiceImplBase {
 	 //IF boolean is true -> On if false->Off
 	 @Override
 	 public void onOff(BooleanReq request, StreamObserver<BooleanRes> responseObserver) {
-		 System.out.println("receiving onOFF for TV ");
+		 System.out.println("receiving onOFF for Speaker ");
 		 Boolean onOff = request.getMsg();
-		 myTv.setOn(onOff);
+		 mySpeaker.setOn(onOff);
 		 
 			
 		 BooleanRes response = BooleanRes.newBuilder().setMsg(onOff).build();
@@ -117,13 +119,13 @@ public class TVServer extends TvServiceImplBase {
 		 System.out.println("receiving mute for TV");
 		 Boolean mute = request.getMsg();
 		 if(mute.equals(true)) {
-			 myTv.setVolume(0);
+			 mySpeaker.setVolume(0);
 			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 
 		 }else {
-			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 		 }
@@ -131,18 +133,18 @@ public class TVServer extends TvServiceImplBase {
 	}
 	 @Override
 	 public void changeVolume(valRequest request, StreamObserver<valResponse> responseObserver) {
-			int currentVolume= myTv.getVolume();
+			int currentVolume= mySpeaker.getVolume();
 		 int volume = request.getLength();
 		 int newVolume = currentVolume +volume;
 		 System.out.println("receiving volume for TV"+ volume);
 		 if(newVolume<=100 && newVolume>=0){
-			 myTv.setVolume(newVolume);
-			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 mySpeaker.setVolume(newVolume);
+			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 			 
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 		 }else {
-			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 			 
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
@@ -155,27 +157,14 @@ public class TVServer extends TvServiceImplBase {
 		 String name = request.getText();
 		 System.out.println("Changing tv name to "+name);
 
-			 myTv.setDeviceName(name);
+			 mySpeaker.setDeviceName(name);
 		 
 		 StringResponse response = StringResponse.newBuilder().setText(name).build();
 		 System.out.println("Response "+response.getText());
 		 responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	 }
-	 @Override
-	 public void changeChannel(valRequest request, StreamObserver<valResponse> responseObserver) {
-		 int current_channel = myTv.getCurrentChannel();
-		 System.out.println("receiving volume for TV");
-		 int channel = request.getLength();
-		 int new_channel = channel+current_channel;
-		 if(new_channel<=10 && new_channel>=1) {
-			 myTv.setCurrentChannel(new_channel);
-		 }
-		 
-		 valResponse response = valResponse.newBuilder().setLength(myTv.getCurrentChannel()).build();
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-	 }
+	 
 
 	 
 }

@@ -740,19 +740,66 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		valRequest req = valRequest.newBuilder().setLength(volume).build();
 		System.out.println("Changing volume");
 
-
-	//Handle device to work with
 		if(device.equals("TV")) {
-			valResponse response = tv_blockingStub.changeVolume(req);
-				System.out.println("TV response"+response.getLength());
-				String vol = String.valueOf(response.getLength());
-		        tvInfo_volume.setText(vol);
+			//valResponse response = tv_asyncStub.changeVolume(req);
+			StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
+				
+				@Override
+				public void onNext(valResponse value) {
+					System.out.println("Receiving "+value);
+					String vol = String.valueOf(value.getLength());
+			        tvInfo_volume.setText(vol);
+					
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					// TODO Auto-generated method stub
+					t.printStackTrace();
+				}
+
+				@Override
+				public void onCompleted() {
+					// TODO Auto-generated method stub
+					System.out.println("Completed changing volume");
+				}
+				
+				
+			};
+			//Handle device to work with
+
+			 tv_asyncStub.changeVolume(req, response);			
+				System.out.println("TV response "+req.getLength());
+				//String vol = String.valueOf(response.getLength());
+		        //tvInfo_volume.setText(vol);
 
 		}else if(device.equals("Speaker")) {
-			valResponse response = speaker_blockingStub.changeVolume(req);
-				System.out.println("Speaker Response"+response.getLength());
-				String vol = String.valueOf(response.getLength());
-		        speakerInfo_volume.setText(vol);
+			StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
+				
+				@Override
+				public void onNext(valResponse value) {
+					System.out.println("Receiving "+value);
+					String vol = String.valueOf(value.getLength());
+			        speakerInfo_volume.setText(vol);
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					// TODO Auto-generated method stub
+					t.printStackTrace();
+				}
+
+				@Override
+				public void onCompleted() {
+					// TODO Auto-generated method stub
+					System.out.println("Completed changing volume");
+				}
+				
+				
+			};
+			
+				speaker_asyncStub.changeVolume(req, response);
+				System.out.println("Speaker Response"+req.getLength());
 		}else if(device.equals("Chromecast")) {
 			//valResponse response = speaker_blockingStub.changeVolume(req);
 			System.out.println("Chromecast Response");
@@ -762,10 +809,34 @@ public void startGRPCServers() throws IOException, InterruptedException {
 	public void changeBrightness(int value) {
 		valRequest req = valRequest.newBuilder().setLength(value).build();
 		System.out.println("Changing Brightness");
-		valResponse response = lamp_blockingStub.changeBrightness(req);
-		System.out.println("Lamp Brightness response"+response.getLength());
-		String brightness = String.valueOf(response.getLength());
-        lampInfo_brightness.setText(brightness);
+		StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
+
+			@Override
+			public void onNext(valResponse value) {
+				System.out.println("Receiving "+value);
+				String brightness = String.valueOf(value.getLength());
+		        lampInfo_brightness.setText(brightness);
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				t.printStackTrace();
+			}
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				System.out.println("Completed changing brightness");
+			}
+			
+		};
+		lamp_asyncStub.changeBrightness(req, response);
+			//	return req.getLength();
+		
+				//lamp_asyncStub.changeBrightness(req);
+		System.out.println("Lamp Brightness response"+response);
+
 
 	}
 	public void changeChannel(int value) {
@@ -775,6 +846,18 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		System.out.println("TV channel response"+response.getLength());
 		String channel = String.valueOf(response.getLength());
         tvInfo_channel.setText("Channel No: "+channel);
+
+		
+
+	}
+	
+	public void mute(String device, boolean value) {
+		BooleanReq req = BooleanReq.newBuilder().setMsg(value).build();
+		System.out.println("Changing Channel");
+		valResponse response =tv_blockingStub.mute(req);
+		System.out.println("TV channel response"+response.getLength());
+		String volume = String.valueOf(response.getLength());
+        tvInfo_volume.setText(volume);
 
 		
 

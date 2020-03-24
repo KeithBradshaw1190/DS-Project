@@ -58,14 +58,14 @@ public final class LampServiceImpl {
       "text\030\001 \001(\t\"\031\n\nBooleanReq\022\013\n\003msg\030\002 \001(\010\"\031\n" +
       "\nBooleanRes\022\013\n\003msg\030\002 \001(\010\"\034\n\nvalRequest\022\016" +
       "\n\006length\030\003 \001(\005\"\035\n\013valResponse\022\016\n\006length\030" +
-      "\003 \001(\0052\356\001\n\013LampService\022K\n\020changeBrightnes" +
+      "\003 \001(\0052\360\001\n\013LampService\022M\n\020changeBrightnes" +
       "s\022\031.SmartHomeGRPC.valRequest\032\032.SmartHome" +
-      "GRPC.valResponse\"\000\022?\n\005onOff\022\031.SmartHomeG" +
-      "RPC.BooleanReq\032\031.SmartHomeGRPC.BooleanRe" +
-      "s\"\000\022Q\n\020changeDeviceName\022\034.SmartHomeGRPC." +
-      "StringRequest\032\035.SmartHomeGRPC.StringResp" +
-      "onse\"\000B6\n!org.DS.keithproject.SmartHomeG" +
-      "RPCB\017LampServiceImplP\001b\006proto3"
+      "GRPC.valResponse\"\0000\001\022?\n\005onOff\022\031.SmartHom" +
+      "eGRPC.BooleanReq\032\031.SmartHomeGRPC.Boolean" +
+      "Res\"\000\022Q\n\020changeDeviceName\022\034.SmartHomeGRP" +
+      "C.StringRequest\032\035.SmartHomeGRPC.StringRe" +
+      "sponse\"\000B6\n!org.DS.keithproject.SmartHom" +
+      "eGRPCB\017LampServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
