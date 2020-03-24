@@ -80,8 +80,27 @@ public class Main {
 	private JTextField speakerName_tf;
 	private JTextField ccName_tf;
 	private JTextField lampName_tf;
-	public  JLabel tvInfo_name ;
-
+	//Labels that change based on grpc responses
+	public JLabel tvInfo_name;
+	public JLabel tvInfo_status;
+	public JLabel tvInfo_volume;
+	public JLabel tvInfo_channel;
+	
+	public JLabel lampInfo_name;
+	public JLabel lampInfo_status;
+	public JLabel lampInfo_brightness;
+	
+	public JLabel ccInfo_name;
+	public JLabel ccInfo_status;
+	public JLabel ccInfo_volume;
+	public JLabel ccInfo_app;
+	
+	public JLabel speakerInfo_name;
+	public JLabel speakerInfo_status;
+	public JLabel speakerInfo_volume;
+	public JLabel speakerInfo_mute;
+	
+	//Ports
 	int speakerPort =1234;
 	int tvPort =1235;
 	int lampPort =1236;
@@ -113,7 +132,7 @@ public class Main {
 	public Main() throws InterruptedException, IOException {
 		initialize();
 		Registering r = new Registering();
-		//Start Device Registry, GRPC servers and channels
+		//Start Device Registry, GRPC servers and channels then unregister
 		r.jmndsRegister(speakerPort, tvPort, lampPort, ccPort);
 		startGRPCServers();
 		channels();
@@ -128,7 +147,7 @@ public class Main {
 	 */
 public void startGRPCServers() throws IOException, InterruptedException {
 	TVServer.startDiscovery();
-	
+	LampServer.startDiscovery();
 	
 }
 	
@@ -176,10 +195,6 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		JLabel device_name_lbl = new JLabel("Device Name");
 		device_name_lbl.setBounds(70, 90, 83, 14);
 		frame.getContentPane().add(device_name_lbl);
-		
-		JLabel device_status_lbl = new JLabel("Step One");
-		device_status_lbl.setBounds(84, 36, 83, 14);
-		frame.getContentPane().add(device_status_lbl);
 		
 		JLabel volume_lbl = new JLabel("Volume");
 		volume_lbl.setBounds(275, 90, 48, 14);
@@ -610,68 +625,65 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		label_4.setBounds(163, 90, 83, 14);
 		frame.getContentPane().add(label_4);
 		
-		JLabel label_9 = new JLabel("Device Name");
-		label_9.setBounds(20, 377, 83, 14);
-		frame.getContentPane().add(label_9);
+		speakerInfo_name = new JLabel("Device Name");
+		speakerInfo_name.setBounds(20, 377, 83, 14);
+		frame.getContentPane().add(speakerInfo_name);
 		
-		JLabel label_10 = new JLabel("Device Status");
-		label_10.setBounds(120, 377, 83, 14);
-		frame.getContentPane().add(label_10);
+		speakerInfo_status = new JLabel("Device Status");
+		speakerInfo_status.setBounds(120, 377, 83, 14);
+		frame.getContentPane().add(speakerInfo_status);
 		
-		JLabel label_11 = new JLabel("Volume");
-		label_11.setBounds(220, 377, 48, 14);
-		frame.getContentPane().add(label_11);
+		speakerInfo_volume = new JLabel("Volume");
+		speakerInfo_volume.setBounds(220, 377, 48, 14);
+		frame.getContentPane().add(speakerInfo_volume);
 		
-		JLabel label_12 = new JLabel("Mute");
-		label_12.setBounds(320, 377, 38, 14);
-		frame.getContentPane().add(label_12);
+		 speakerInfo_mute = new JLabel("Mute");
+		speakerInfo_mute.setBounds(320, 377, 38, 14);
+		frame.getContentPane().add(speakerInfo_mute);
+		
 		tvInfo_name= new JLabel("Device Name");
 		tvInfo_name.setBounds(20, 332, 83, 14);
 		frame.getContentPane().add(tvInfo_name);
 		
-		JLabel tvInfo_status = new JLabel("Device Status");
+		tvInfo_status = new JLabel("Device Status");
 		tvInfo_status.setBounds(120, 332, 83, 14);
 		frame.getContentPane().add(tvInfo_status);
 		
-		JLabel tvInfo_volume = new JLabel("Volume");
+		tvInfo_volume = new JLabel("Volume");
 		tvInfo_volume.setBounds(220, 332, 48, 14);
 		frame.getContentPane().add(tvInfo_volume);
 		
-		JLabel tvInfo_mute = new JLabel("Mute");
-		tvInfo_mute.setBounds(320, 332, 38, 14);
-		frame.getContentPane().add(tvInfo_mute);
+		tvInfo_channel = new JLabel("Channel");
+		tvInfo_channel.setBounds(320, 332, 98, 14);
+		frame.getContentPane().add(tvInfo_channel);
 		
-		JLabel label_5 = new JLabel("Device Name");
-		label_5.setBounds(20, 418, 83, 14);
-		frame.getContentPane().add(label_5);
+		ccInfo_name = new JLabel("Device Name");
+		ccInfo_name.setBounds(20, 418, 83, 14);
+		frame.getContentPane().add(ccInfo_name);
 		
-		JLabel label_6 = new JLabel("Device Status");
-		label_6.setBounds(120, 418, 83, 14);
-		frame.getContentPane().add(label_6);
+		ccInfo_status = new JLabel("Device Status");
+		ccInfo_status.setBounds(120, 418, 83, 14);
+		frame.getContentPane().add(ccInfo_status);
 		
-		JLabel label_7 = new JLabel("Volume");
-		label_7.setBounds(220, 418, 48, 14);
-		frame.getContentPane().add(label_7);
+		ccInfo_volume = new JLabel("Volume");
+		ccInfo_volume.setBounds(220, 418, 48, 14);
+		frame.getContentPane().add(ccInfo_volume);
 		
-		JLabel label_8 = new JLabel("Mute");
-		label_8.setBounds(320, 418, 38, 14);
-		frame.getContentPane().add(label_8);
+		ccInfo_app = new JLabel("Application");
+		ccInfo_app.setBounds(320, 418, 98, 14);
+		frame.getContentPane().add(ccInfo_app);
 		
-		JLabel label_17 = new JLabel("Device Name");
-		label_17.setBounds(20, 458, 83, 14);
-		frame.getContentPane().add(label_17);
+		lampInfo_name = new JLabel("Device Name");
+		lampInfo_name.setBounds(20, 458, 83, 14);
+		frame.getContentPane().add(lampInfo_name);
 		
-		JLabel label_18 = new JLabel("Device Status");
-		label_18.setBounds(120, 458, 83, 14);
-		frame.getContentPane().add(label_18);
+		lampInfo_status = new JLabel("Device Status");
+		lampInfo_status.setBounds(120, 458, 83, 14);
+		frame.getContentPane().add(lampInfo_status);
 		
-		JLabel label_19 = new JLabel("Volume");
-		label_19.setBounds(220, 458, 48, 14);
-		frame.getContentPane().add(label_19);
-		
-		JLabel label_20 = new JLabel("Mute");
-		label_20.setBounds(320, 458, 38, 14);
-		frame.getContentPane().add(label_20);
+		lampInfo_brightness = new JLabel("Volume");
+		lampInfo_brightness.setBounds(220, 458, 48, 14);
+		frame.getContentPane().add(lampInfo_brightness);
 		appList.addActionListener(new ActionListener()  {
 			
 		    public void actionPerformed(ActionEvent e) {
@@ -706,11 +718,15 @@ public void startGRPCServers() throws IOException, InterruptedException {
 			System.out.println("Device is a Speaker");
 			StringResponse response = speaker_blockingStub.changeDeviceName(req);
 				System.out.println("Speaker Response "+response.getText());
+		        speakerInfo_name.setText(response.getText());
+
 		}
 		else if(device.equals("Lamp")) {
 			System.out.println("Device is a Lamp");
 			StringResponse response = lamp_blockingStub.changeDeviceName(req);
 			System.out.println("Lamp Response "+response.getText());
+	        lampInfo_name.setText(response.getText());
+
 		}
 		else if(device.equals("Chromecast")) {
 			System.out.println("Device is a Chromecast but not set up yet");
@@ -720,7 +736,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 
 	}
 	
-	public static void changeVolume(int volume, String device) {
+	public void changeVolume(int volume, String device) {
 		valRequest req = valRequest.newBuilder().setLength(volume).build();
 		System.out.println("Changing volume");
 
@@ -729,30 +745,41 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		if(device.equals("TV")) {
 			valResponse response = tv_blockingStub.changeVolume(req);
 				System.out.println("TV response"+response.getLength());
+				String vol = String.valueOf(response.getLength());
+		        tvInfo_volume.setText(vol);
+
 		}else if(device.equals("Speaker")) {
 			valResponse response = speaker_blockingStub.changeVolume(req);
 				System.out.println("Speaker Response"+response.getLength());
+				String vol = String.valueOf(response.getLength());
+		        speakerInfo_volume.setText(vol);
 		}else if(device.equals("Chromecast")) {
 			//valResponse response = speaker_blockingStub.changeVolume(req);
 			System.out.println("Chromecast Response");
 		}
 
 	}
-	public static void changeBrightness(int value) {
+	public void changeBrightness(int value) {
 		valRequest req = valRequest.newBuilder().setLength(value).build();
 		System.out.println("Changing Brightness");
 		valResponse response = lamp_blockingStub.changeBrightness(req);
 		System.out.println("Lamp Brightness response"+response.getLength());
+		String brightness = String.valueOf(response.getLength());
+        lampInfo_brightness.setText(brightness);
 
 	}
-	public static void changeChannel(int value) {
+	public void changeChannel(int value) {
 		valRequest req = valRequest.newBuilder().setLength(value).build();
 		System.out.println("Changing Channel");
 		valResponse response =tv_blockingStub.changeChannel(req);
 		System.out.println("TV channel response"+response.getLength());
+		String channel = String.valueOf(response.getLength());
+        tvInfo_channel.setText("Channel No: "+channel);
+
+		
 
 	}
-	public static void onOff(boolean onOff, String device) {
+	public void onOff(boolean onOff, String device) {
 		BooleanReq req = BooleanReq.newBuilder().setMsg(onOff).build();
 		System.out.println("On Off");
 
@@ -761,14 +788,32 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		if(device.equals("TV")) {
 			BooleanRes response = tv_blockingStub.onOff(req);
 				System.out.println("TV response"+response.getMsg());
+			Boolean status=	response.getMsg();
+			if(status) {
+				tvInfo_status.setText("On");
+			}else {
+				tvInfo_status.setText("Off");
+			}
 		}else if(device.equals("Speaker")) {
 			BooleanRes response = speaker_blockingStub.onOff(req);
 				System.out.println("Speaker Response"+response.getMsg());
+				Boolean status=	response.getMsg();
+				if(status) {
+					speakerInfo_status.setText("On");
+				}else {
+					speakerInfo_status.setText("Off");
+				}
 		}else if(device.equals("Chromecast")) {
 			System.out.println("Chromecast Response not set up yet");
 		}else if(device.equals("Lamp")) {
 			BooleanRes response = lamp_blockingStub.onOff(req);
 			System.out.println("Lamp Response"+response.getMsg());
+			Boolean status=	response.getMsg();
+			if(status) {
+				lampInfo_status.setText("On");
+			}else {
+				lampInfo_status.setText("Off");
+			}
 		}
 	}
 }

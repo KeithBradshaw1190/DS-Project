@@ -127,15 +127,23 @@ public class TVServer extends TvServiceImplBase {
 	}
 	 @Override
 	 public void changeVolume(valRequest request, StreamObserver<valResponse> responseObserver) {
-
+			int currentVolume= myTv.getVolume();
 		 int volume = request.getLength();
+		 int newVolume = currentVolume +volume;
 		 System.out.println("receiving volume for TV"+ volume);
-		 if(volume<=100 && volume>=1) {
-			 myTv.setVolume(volume);
+		 if(newVolume<=100 && newVolume>=0){
+			 myTv.setVolume(newVolume);
+			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
+		 }else {
+			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
 		 }
-		 valResponse response = valResponse.newBuilder().setLength(volume).build();
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
+
 
 	}
 	 @Override
