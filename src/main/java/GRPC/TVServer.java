@@ -10,8 +10,11 @@ import javax.jmdns.ServiceListener;
 
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
+import org.DS.keithproject.SmartHomeGRPC.Empty;
 import org.DS.keithproject.SmartHomeGRPC.StringRequest;
 import org.DS.keithproject.SmartHomeGRPC.StringResponse;
+import org.DS.keithproject.SmartHomeGRPC.speakerResp;
+import org.DS.keithproject.SmartHomeGRPC.tvResp;
 import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
@@ -145,6 +148,30 @@ public class TVServer extends TvServiceImplBase {
 				responseObserver.onCompleted();
 		 }
 
+
+	}
+	 @Override
+	 public void initialDevice(Empty request, StreamObserver<tvResp> responseObserver) {
+		 System.out.println("receiving initialDevice request for TV ");
+		 String status;
+
+		 if(myTv.isOn()) {
+			  status ="On";
+		 }else {
+			  status ="Off";
+
+		 }
+		 String dName=myTv.getDeviceName();
+		 String dStatus = status;
+		 Integer dChannel = myTv.getCurrentChannel();
+		 Integer dVolume=myTv.getVolume();
+
+			
+		 tvResp response = tvResp.newBuilder()
+				 .setDname(dName).setStatus(dStatus).setVolume(dVolume).setChannel(dChannel)
+				 .build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
 
 	}
 	 @Override

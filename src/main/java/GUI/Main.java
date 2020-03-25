@@ -155,6 +155,8 @@ public void startGRPCServers() throws IOException, InterruptedException {
 }
 public void loadInitialDevices() throws IOException, InterruptedException {
 	initialSpeaker();
+	initialSpeakerTv();
+	initialLamp();
 }
 	public void channels() {
 	
@@ -635,7 +637,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(speakerInfo_name);
 		
 		speakerInfo_status = new JLabel("Device Status");
-		speakerInfo_status.setBounds(120, 377, 83, 14);
+		speakerInfo_status.setBounds(120, 377, 90, 14);
 		frame.getContentPane().add(speakerInfo_status);
 		
 		speakerInfo_volume = new JLabel("Volume");
@@ -647,15 +649,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(speakerInfo_mute);
 		
 		tvInfo_name= new JLabel("Device Name");
-		tvInfo_name.setBounds(10, 332, 93, 14);
+		tvInfo_name.setBo, 33210, 332, 93, 14);
 		frame.getContentPane().add(tvInfo_name);
 		
 		tvInfo_status = new JLabel("Device Status");
-		tvInfo_status.setBounds(120, 332, 83, 14);
+		tvInfo_status.setBounds(120105332, 83, 14);
 		frame.getContentPane().add(tvInfo_status);
 		
 		tvInfo_volume = new JLabel("Volume");
-		tvInfo_volume.setBounds(220, 332, 48, 14);
+		tvInfo_volume.setB35ounds(220, 332, 48, 14);
 		frame.getContentPane().add(tvInfo_volume);
 		
 		tvInfo_channel = new JLabel("Channel");
@@ -914,18 +916,35 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	}
 	public void initialSpeaker() {
 		Empty req = Empty.newBuilder().build();
-		System.out.println("Changing Channel");
-		deviceResp response =speaker_blockingStub.initialDevice(req);
-		System.out.println("Speaker channel response"+response.getDname());
-		speakerInfo_name.setText(response.getDname());
-		speakerInfo_status.setText(response.getStatus());
-		String volume = String.valueOf(response.getVolume());
+		System.out.println("Initial Speaker");
+		speakerResp response =speaker_blockingStub.initialDevice(req);
+		speakerInfo_name.setText("Name: "+response.getDname());
+		speakerInfo_status.setText("Status: "+response.getStatus());
+		String volume = String.valueOf("Volume: "+ response.getVolume());
 		speakerInfo_volume.setText(volume);
-		speakerInfo_name.setText(response.getDname());
 
-	
+	}
+	public void initialTV() {
+		Empty req = Empty.newBuilder().build();
+		System.out.println("Initial TV");
+		tvResp response =tv_blockingStub.initialDevice(req);
+		tvInfo_name.setText("Name: "+response.getDname());
+		tvInfo_status.setText("Status: "+response.getStatus());
+		String volume = String.valueOf("Volume: "+ response.getVolume());
+		tvInfo_volume.setText(volume);
+		String channel = String.valueOf("Channel: "+ response.getVolume());
+		tvInfo_channel.setText(channel);
 
-		
+
+	}
+	public void initialLamp() {
+		Empty req = Empty.newBuilder().build();
+		System.out.println("Initial Lamp");
+		lampResp response =lamp_blockingStub.initialDevice(req);
+		lampInfo_name.setText("Name: "+response.getDname());
+		lampInfo_status.setText("Status: "+response.getStatus());
+		String brightness = String.valueOf("Brightness: "+ response.getBrightness());
+		speakerInfo_volume.setText(brightness);
 
 	}
 }

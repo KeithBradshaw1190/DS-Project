@@ -3,8 +3,8 @@
 
 package org.DS.keithproject.SmartHomeGRPC;
 
-public interface deviceRespOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:SmartHomeGRPC.deviceResp)
+public interface speakerRespOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:SmartHomeGRPC.speakerResp)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -33,7 +33,7 @@ public interface deviceRespOrBuilder extends
   int getVolume();
 
   /**
-   * <code>bool mute = 7;</code>
+   * <code>bool muted = 7;</code>
    */
-  boolean getMute();
+  boolean getMuted();
 }

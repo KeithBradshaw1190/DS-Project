@@ -14,8 +14,8 @@ import org.DS.keithproject.SmartHomeGRPC.Empty;
 import org.DS.keithproject.SmartHomeGRPC.SpeakerServiceGrpc.SpeakerServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.StringRequest;
 import org.DS.keithproject.SmartHomeGRPC.StringResponse;
-import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
-import org.DS.keithproject.SmartHomeGRPC.deviceResp;
+import org.DS.keithproject.SmartHomeGRPC.speakerResp;
+//import org.DS.keithproject.SmartHomeGRPC.deviceResp;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
@@ -117,7 +117,7 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 
 	}
 	 
-	 public void initialDevice(Empty request, StreamObserver<deviceResp> responseObserver) {
+	 public void initialDevice(Empty request, StreamObserver<speakerResp> responseObserver) {
 		 System.out.println("receiving initialDevice request for Speaker ");
 		 String status;
 
@@ -129,12 +129,12 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 		 }
 		 String dName=mySpeaker.getDeviceName();
 		 String dStatus = status;
-		 Boolean dMute=mySpeaker.isMute();
+		 Boolean dMute = mySpeaker.isMute();
 		 Integer dVolume=mySpeaker.getVolume();
 
 			
-		 deviceResp response = deviceResp.newBuilder()
-				 .setDname(dName).setStatus(dStatus).setMute(dMute).setVolume(dVolume)
+		 speakerResp response = speakerResp.newBuilder()
+				 .setDname(dName).setStatus(dStatus).setVolume(dVolume).setMuted(dMute)
 				 .build();
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();

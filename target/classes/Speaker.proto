@@ -9,7 +9,7 @@ package SmartHomeGRPC;
 // Interface exported by the server.
 
 service SpeakerService {
-  rpc initialDevice(Empty) returns (deviceResp) {}
+  rpc initialDevice(Empty) returns (speakerResp) {}
   
   rpc changeVolume(valRequest) returns (stream valResponse) {}
   
@@ -47,10 +47,10 @@ message valRequest {
 message valResponse {
   int32 length = 3;
 }
-message deviceResp{
+message speakerResp{
 	string dname = 4;
 	string status = 5;
 	int32 volume = 6;
-	bool mute = 7;
+	bool muted = 7;
 	
 }

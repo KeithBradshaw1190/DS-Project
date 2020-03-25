@@ -9,6 +9,7 @@ package SmartHomeGRPC;
 // Interface exported by the server.
 
 service TvService {
+  rpc initialDevice(Empty) returns (tvResp) {}
   
   rpc changeVolume(valRequest) returns (stream valResponse) {}
   
@@ -21,6 +22,9 @@ service TvService {
   rpc changeChannel(valRequest) returns (valResponse) {}
   
   
+}
+message Empty {
+
 }
 
 message StringRequest {
@@ -44,4 +48,11 @@ message valRequest {
 }
 message valResponse {
   int32 length = 3;
+}
+
+message tvResp{
+	string dname = 4;
+	string status = 5;
+	int32 volume = 6;
+	int32 channel = 7;
 }

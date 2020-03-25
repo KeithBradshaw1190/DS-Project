@@ -27,6 +27,38 @@ public final class TvServiceGrpc {
   public static final String SERVICE_NAME = "SmartHomeGRPC.TvService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.tvResp> getInitialDeviceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "initialDevice",
+      requestType = org.DS.keithproject.SmartHomeGRPC.Empty.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.tvResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.tvResp> getInitialDeviceMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.tvResp> getInitialDeviceMethod;
+    if ((getInitialDeviceMethod = TvServiceGrpc.getInitialDeviceMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getInitialDeviceMethod = TvServiceGrpc.getInitialDeviceMethod) == null) {
+          TvServiceGrpc.getInitialDeviceMethod = getInitialDeviceMethod = 
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.tvResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "SmartHomeGRPC.TvService", "initialDevice"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.tvResp.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("initialDevice"))
+                  .build();
+          }
+        }
+     }
+     return getInitialDeviceMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod;
 
@@ -216,6 +248,13 @@ public final class TvServiceGrpc {
 
     /**
      */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.tvResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getInitialDeviceMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getChangeVolumeMethod(), responseObserver);
@@ -251,6 +290,13 @@ public final class TvServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getInitialDeviceMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                org.DS.keithproject.SmartHomeGRPC.Empty,
+                org.DS.keithproject.SmartHomeGRPC.tvResp>(
+                  this, METHODID_INITIAL_DEVICE)))
           .addMethod(
             getChangeVolumeMethod(),
             asyncServerStreamingCall(
@@ -306,6 +352,14 @@ public final class TvServiceGrpc {
     protected TvServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new TvServiceStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.tvResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -369,6 +423,13 @@ public final class TvServiceGrpc {
 
     /**
      */
+    public org.DS.keithproject.SmartHomeGRPC.tvResp initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return blockingUnaryCall(
+          getChannel(), getInitialDeviceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
         org.DS.keithproject.SmartHomeGRPC.valRequest request) {
       return blockingServerStreamingCall(
@@ -424,6 +485,14 @@ public final class TvServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.tvResp> initialDevice(
+        org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> mute(
         org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return futureUnaryCall(
@@ -455,11 +524,12 @@ public final class TvServiceGrpc {
     }
   }
 
-  private static final int METHODID_CHANGE_VOLUME = 0;
-  private static final int METHODID_MUTE = 1;
-  private static final int METHODID_ON_OFF = 2;
-  private static final int METHODID_CHANGE_DEVICE_NAME = 3;
-  private static final int METHODID_CHANGE_CHANNEL = 4;
+  private static final int METHODID_INITIAL_DEVICE = 0;
+  private static final int METHODID_CHANGE_VOLUME = 1;
+  private static final int METHODID_MUTE = 2;
+  private static final int METHODID_ON_OFF = 3;
+  private static final int METHODID_CHANGE_DEVICE_NAME = 4;
+  private static final int METHODID_CHANGE_CHANNEL = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -478,6 +548,10 @@ public final class TvServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_INITIAL_DEVICE:
+          serviceImpl.initialDevice((org.DS.keithproject.SmartHomeGRPC.Empty) request,
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.tvResp>) responseObserver);
+          break;
         case METHODID_CHANGE_VOLUME:
           serviceImpl.changeVolume((org.DS.keithproject.SmartHomeGRPC.valRequest) request,
               (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse>) responseObserver);
@@ -559,6 +633,7 @@ public final class TvServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new TvServiceFileDescriptorSupplier())
+              .addMethod(getInitialDeviceMethod())
               .addMethod(getChangeVolumeMethod())
               .addMethod(getMuteMethod())
               .addMethod(getOnOffMethod())

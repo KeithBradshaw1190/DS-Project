@@ -10,8 +10,11 @@ import javax.jmdns.ServiceListener;
 
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
+import org.DS.keithproject.SmartHomeGRPC.Empty;
 import org.DS.keithproject.SmartHomeGRPC.StringRequest;
 import org.DS.keithproject.SmartHomeGRPC.StringResponse;
+import org.DS.keithproject.SmartHomeGRPC.lampResp;
+import org.DS.keithproject.SmartHomeGRPC.tvResp;
 import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
@@ -117,7 +120,29 @@ public class LampServer extends LampServiceImplBase {
 		    server.awaitTermination();
 	 }
 	 
+	 @Override
+	 public void initialDevice(Empty request, StreamObserver<lampResp> responseObserver) {
+		 System.out.println("receiving initialDevice request for Lamp ");
+		 String status;
 
+		 if(myLamp.isOn()) {
+			  status ="On";
+		 }else {
+			  status ="Off";
+
+		 }
+		 String dName=myLamp.getDeviceName();
+		 String dStatus = status;
+		 Integer dBrightness=myLamp.getBrightness();
+
+			
+		 lampResp response = lampResp.newBuilder()
+				 .setDname(dName).setStatus(dStatus).setBrightness(dBrightness)
+				 .build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+	}
 	
 	//IF boolean is true -> On if false->Off
 	 @Override

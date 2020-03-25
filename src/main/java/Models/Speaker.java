@@ -8,7 +8,7 @@ private int volume;
 public Speaker(){
 		this.device="Speaker";
 		this.On=true;
-		this.deviceName="Custom Speaker Name";
+		this.deviceName="Custom Name";
 		this.volume=20;
 		this.mute=false;
 	}

@@ -27,6 +27,38 @@ public final class LampServiceGrpc {
   public static final String SERVICE_NAME = "SmartHomeGRPC.LampService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.lampResp> getInitialDeviceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "initialDevice",
+      requestType = org.DS.keithproject.SmartHomeGRPC.Empty.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.lampResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.lampResp> getInitialDeviceMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.lampResp> getInitialDeviceMethod;
+    if ((getInitialDeviceMethod = LampServiceGrpc.getInitialDeviceMethod) == null) {
+      synchronized (LampServiceGrpc.class) {
+        if ((getInitialDeviceMethod = LampServiceGrpc.getInitialDeviceMethod) == null) {
+          LampServiceGrpc.getInitialDeviceMethod = getInitialDeviceMethod = 
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.lampResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "SmartHomeGRPC.LampService", "initialDevice"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.lampResp.getDefaultInstance()))
+                  .setSchemaDescriptor(new LampServiceMethodDescriptorSupplier("initialDevice"))
+                  .build();
+          }
+        }
+     }
+     return getInitialDeviceMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeBrightnessMethod;
 
@@ -152,6 +184,13 @@ public final class LampServiceGrpc {
 
     /**
      */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.lampResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getInitialDeviceMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void changeBrightness(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getChangeBrightnessMethod(), responseObserver);
@@ -173,6 +212,13 @@ public final class LampServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getInitialDeviceMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                org.DS.keithproject.SmartHomeGRPC.Empty,
+                org.DS.keithproject.SmartHomeGRPC.lampResp>(
+                  this, METHODID_INITIAL_DEVICE)))
           .addMethod(
             getChangeBrightnessMethod(),
             asyncServerStreamingCall(
@@ -214,6 +260,14 @@ public final class LampServiceGrpc {
     protected LampServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new LampServiceStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.lampResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -261,6 +315,13 @@ public final class LampServiceGrpc {
 
     /**
      */
+    public org.DS.keithproject.SmartHomeGRPC.lampResp initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return blockingUnaryCall(
+          getChannel(), getInitialDeviceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeBrightness(
         org.DS.keithproject.SmartHomeGRPC.valRequest request) {
       return blockingServerStreamingCall(
@@ -302,6 +363,14 @@ public final class LampServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.lampResp> initialDevice(
+        org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.BooleanRes> onOff(
         org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return futureUnaryCall(
@@ -317,9 +386,10 @@ public final class LampServiceGrpc {
     }
   }
 
-  private static final int METHODID_CHANGE_BRIGHTNESS = 0;
-  private static final int METHODID_ON_OFF = 1;
-  private static final int METHODID_CHANGE_DEVICE_NAME = 2;
+  private static final int METHODID_INITIAL_DEVICE = 0;
+  private static final int METHODID_CHANGE_BRIGHTNESS = 1;
+  private static final int METHODID_ON_OFF = 2;
+  private static final int METHODID_CHANGE_DEVICE_NAME = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -338,6 +408,10 @@ public final class LampServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_INITIAL_DEVICE:
+          serviceImpl.initialDevice((org.DS.keithproject.SmartHomeGRPC.Empty) request,
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.lampResp>) responseObserver);
+          break;
         case METHODID_CHANGE_BRIGHTNESS:
           serviceImpl.changeBrightness((org.DS.keithproject.SmartHomeGRPC.valRequest) request,
               (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse>) responseObserver);
@@ -411,6 +485,7 @@ public final class LampServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new LampServiceFileDescriptorSupplier())
+              .addMethod(getInitialDeviceMethod())
               .addMethod(getChangeBrightnessMethod())
               .addMethod(getOnOffMethod())
               .addMethod(getChangeDeviceNameMethod())

@@ -10,6 +10,7 @@ package SmartHomeGRPC;
 
 
 service LampService {
+  rpc initialDevice(Empty) returns (lampResp) {}
   
   rpc changeBrightness(valRequest) returns (stream valResponse) {}
   
@@ -18,6 +19,11 @@ service LampService {
   rpc changeDeviceName(StringRequest) returns (StringResponse) {}
   
 }
+
+message Empty {
+
+}
+
 
 message StringRequest {
 	string text = 1;
@@ -40,4 +46,9 @@ message valRequest {
 }
 message valResponse {
   int32 length = 3;
+}
+message lampResp{
+	string dname = 4;
+	string status = 5;
+	int32 brightness = 6;	
 }

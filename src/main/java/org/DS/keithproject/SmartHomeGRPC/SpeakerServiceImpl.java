@@ -50,10 +50,10 @@ public final class SpeakerServiceImpl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SmartHomeGRPC_valResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_SmartHomeGRPC_deviceResp_descriptor;
+    internal_static_SmartHomeGRPC_speakerResp_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_SmartHomeGRPC_deviceResp_fieldAccessorTable;
+      internal_static_SmartHomeGRPC_speakerResp_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -68,20 +68,20 @@ public final class SpeakerServiceImpl {
       "Response\022\014\n\004text\030\001 \001(\t\"\031\n\nBooleanReq\022\013\n\003" +
       "msg\030\002 \001(\010\"\031\n\nBooleanRes\022\013\n\003msg\030\002 \001(\010\"\034\n\n" +
       "valRequest\022\016\n\006length\030\003 \001(\005\"\035\n\013valRespons" +
-      "e\022\016\n\006length\030\003 \001(\005\"I\n\ndeviceResp\022\r\n\005dname" +
-      "\030\004 \001(\t\022\016\n\006status\030\005 \001(\t\022\016\n\006volume\030\006 \001(\005\022\014" +
-      "\n\004mute\030\007 \001(\0102\364\002\n\016SpeakerService\022B\n\riniti" +
-      "alDevice\022\024.SmartHomeGRPC.Empty\032\031.SmartHo" +
-      "meGRPC.deviceResp\"\000\022I\n\014changeVolume\022\031.Sm" +
-      "artHomeGRPC.valRequest\032\032.SmartHomeGRPC.v" +
-      "alResponse\"\0000\001\022?\n\004mute\022\031.SmartHomeGRPC.B" +
-      "ooleanReq\032\032.SmartHomeGRPC.valResponse\"\000\022" +
-      "?\n\005onOff\022\031.SmartHomeGRPC.BooleanReq\032\031.Sm" +
-      "artHomeGRPC.BooleanRes\"\000\022Q\n\020changeDevice" +
-      "Name\022\034.SmartHomeGRPC.StringRequest\032\035.Sma" +
-      "rtHomeGRPC.StringResponse\"\000B9\n!org.DS.ke" +
-      "ithproject.SmartHomeGRPCB\022SpeakerService" +
-      "ImplP\001b\006proto3"
+      "e\022\016\n\006length\030\003 \001(\005\"K\n\013speakerResp\022\r\n\005dnam" +
+      "e\030\004 \001(\t\022\016\n\006status\030\005 \001(\t\022\016\n\006volume\030\006 \001(\005\022" +
+      "\r\n\005muted\030\007 \001(\0102\365\002\n\016SpeakerService\022C\n\rini" +
+      "tialDevice\022\024.SmartHomeGRPC.Empty\032\032.Smart" +
+      "HomeGRPC.speakerResp\"\000\022I\n\014changeVolume\022\031" +
+      ".SmartHomeGRPC.valRequest\032\032.SmartHomeGRP" +
+      "C.valResponse\"\0000\001\022?\n\004mute\022\031.SmartHomeGRP" +
+      "C.BooleanReq\032\032.SmartHomeGRPC.valResponse" +
+      "\"\000\022?\n\005onOff\022\031.SmartHomeGRPC.BooleanReq\032\031" +
+      ".SmartHomeGRPC.BooleanRes\"\000\022Q\n\020changeDev" +
+      "iceName\022\034.SmartHomeGRPC.StringRequest\032\035." +
+      "SmartHomeGRPC.StringResponse\"\000B9\n!org.DS" +
+      ".keithproject.SmartHomeGRPCB\022SpeakerServ" +
+      "iceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -137,12 +137,12 @@ public final class SpeakerServiceImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SmartHomeGRPC_valResponse_descriptor,
         new java.lang.String[] { "Length", });
-    internal_static_SmartHomeGRPC_deviceResp_descriptor =
+    internal_static_SmartHomeGRPC_speakerResp_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_SmartHomeGRPC_deviceResp_fieldAccessorTable = new
+    internal_static_SmartHomeGRPC_speakerResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_SmartHomeGRPC_deviceResp_descriptor,
-        new java.lang.String[] { "Dname", "Status", "Volume", "Mute", });
+        internal_static_SmartHomeGRPC_speakerResp_descriptor,
+        new java.lang.String[] { "Dname", "Status", "Volume", "Muted", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
