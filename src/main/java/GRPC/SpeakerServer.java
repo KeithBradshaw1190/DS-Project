@@ -142,9 +142,9 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 	}
 
 	 public void mute(BooleanReq request, StreamObserver<valResponse> responseObserver) {
-		 System.out.println("receiving mute for TV");
+		 System.out.println("receiving mute for Speaker");
 		 Boolean mute = request.getMsg();
-		 if(mute.equals(true)) {
+		 if(mute) {
 			 mySpeaker.setVolume(0);
 			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 				responseObserver.onNext(response);

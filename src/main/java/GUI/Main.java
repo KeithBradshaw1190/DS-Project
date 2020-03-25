@@ -155,7 +155,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 }
 public void loadInitialDevices() throws IOException, InterruptedException {
 	initialSpeaker();
-	initialSpeakerTv();
+	initialTV();
 	initialLamp();
 }
 	public void channels() {
@@ -586,9 +586,14 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				public void stateChanged(ChangeEvent event) {
 					 if (speakerMute_tgl.isSelected()){
 						 speakerMute_tgl.setText("Muted");
+						 mute(true);
+						 speakerInfo_mute.setText("Muted");
 						 
 		            } else {
 		            	speakerMute_tgl.setText("Mute");
+		            	mute(false);
+						 speakerInfo_mute.setText("Mute");
+
 		            }
 					
 				}
@@ -633,15 +638,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(label_4);
 		
 		speakerInfo_name = new JLabel("Device Name");
-		speakerInfo_name.setBounds(10, 377, 100, 14);
+		speakerInfo_name.setBounds(10, 377, 111, 14);
 		frame.getContentPane().add(speakerInfo_name);
 		
 		speakerInfo_status = new JLabel("Device Status");
-		speakerInfo_status.setBounds(120, 377, 90, 14);
+		speakerInfo_status.setBounds(125, 377, 90, 14);
 		frame.getContentPane().add(speakerInfo_status);
 		
 		speakerInfo_volume = new JLabel("Volume");
-		speakerInfo_volume.setBounds(220, 377, 48, 14);
+		speakerInfo_volume.setBounds(220, 377, 90, 14);
 		frame.getContentPane().add(speakerInfo_volume);
 		
 		 speakerInfo_mute = new JLabel("Mute");
@@ -649,15 +654,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(speakerInfo_mute);
 		
 		tvInfo_name= new JLabel("Device Name");
-		tvInfo_name.setBo, 33210, 332, 93, 14);
+		tvInfo_name.setBounds(10, 332, 111, 14);
 		frame.getContentPane().add(tvInfo_name);
 		
 		tvInfo_status = new JLabel("Device Status");
-		tvInfo_status.setBounds(120105332, 83, 14);
+		tvInfo_status.setBounds(125,332, 90, 14);
 		frame.getContentPane().add(tvInfo_status);
 		
 		tvInfo_volume = new JLabel("Volume");
-		tvInfo_volume.setB35ounds(220, 332, 48, 14);
+		tvInfo_volume.setBounds(220, 332, 90, 14);
 		frame.getContentPane().add(tvInfo_volume);
 		
 		tvInfo_channel = new JLabel("Channel");
@@ -665,15 +670,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(tvInfo_channel);
 		
 		ccInfo_name = new JLabel("Device Name");
-		ccInfo_name.setBounds(10, 418, 93, 14);
+		ccInfo_name.setBounds(10, 418, 111, 14);
 		frame.getContentPane().add(ccInfo_name);
 		
 		ccInfo_status = new JLabel("Device Status");
-		ccInfo_status.setBounds(120, 418, 83, 14);
+		ccInfo_status.setBounds(125, 418, 83, 14);
 		frame.getContentPane().add(ccInfo_status);
 		
 		ccInfo_volume = new JLabel("Volume");
-		ccInfo_volume.setBounds(220, 418, 48, 14);
+		ccInfo_volume.setBounds(220, 418, 83, 14);
 		frame.getContentPane().add(ccInfo_volume);
 		
 		ccInfo_app = new JLabel("Application");
@@ -681,15 +686,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(ccInfo_app);
 		
 		lampInfo_name = new JLabel("Device Name");
-		lampInfo_name.setBounds(10, 458, 93, 14);
+		lampInfo_name.setBounds(10, 458, 111, 14);
 		frame.getContentPane().add(lampInfo_name);
 		
 		lampInfo_status = new JLabel("Device Status");
-		lampInfo_status.setBounds(120, 458, 83, 14);
+		lampInfo_status.setBounds(125, 458, 90, 14);
 		frame.getContentPane().add(lampInfo_status);
 		
 		lampInfo_brightness = new JLabel("Volume");
-		lampInfo_brightness.setBounds(220, 458, 48, 14);
+		lampInfo_brightness.setBounds(220, 458, 103, 14);
 		frame.getContentPane().add(lampInfo_brightness);
 		
 		JSeparator separator = new JSeparator();
@@ -726,21 +731,21 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 			System.out.println("Device is a TV");
 			StringResponse response = tv_blockingStub.changeDeviceName(req);
 				System.out.println("TV response "+response.getText());
-		        tvInfo_name.setText(response.getText());
+		        tvInfo_name.setText("Name: "+response.getText());
 
 		}
 		else if(device.equals("Speaker")) {
 			System.out.println("Device is a Speaker");
 			StringResponse response = speaker_blockingStub.changeDeviceName(req);
 				System.out.println("Speaker Response "+response.getText());
-		        speakerInfo_name.setText(response.getText());
+		        speakerInfo_name.setText("Name: "+response.getText());
 
 		}
 		else if(device.equals("Lamp")) {
 			System.out.println("Device is a Lamp");
 			StringResponse response = lamp_blockingStub.changeDeviceName(req);
 			System.out.println("Lamp Response "+response.getText());
-	        lampInfo_name.setText(response.getText());
+	        lampInfo_name.setText("Name: "+response.getText());
 
 		}
 		else if(device.equals("Chromecast")) {
@@ -763,7 +768,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				public void onNext(valResponse value) {
 					System.out.println("Receiving "+value);
 					String vol = String.valueOf(value.getLength());
-			        tvInfo_volume.setText(vol);
+			        tvInfo_volume.setText("Volume"+vol);
 					
 				}
 
@@ -795,7 +800,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				public void onNext(valResponse value) {
 					System.out.println("Receiving "+value);
 					String vol = String.valueOf(value.getLength());
-			        speakerInfo_volume.setText(vol);
+			        speakerInfo_volume.setText("Volume: "+vol);
 				}
 
 				@Override
@@ -830,7 +835,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 			public void onNext(valResponse value) {
 				System.out.println("Receiving "+value);
 				String brightness = String.valueOf(value.getLength());
-		        lampInfo_brightness.setText(brightness);
+		        lampInfo_brightness.setText("Brightness: "+brightness);
 			}
 
 			@Override
@@ -866,14 +871,13 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 
 	}
 	
-	public void mute(String device, boolean value) {
+	public void mute(boolean value) {
 		BooleanReq req = BooleanReq.newBuilder().setMsg(value).build();
-		System.out.println("Changing Channel");
-		valResponse response =tv_blockingStub.mute(req);
-		System.out.println("TV channel response"+response.getLength());
+		System.out.println("Mute");
+		valResponse response =speaker_blockingStub.mute(req);
+		System.out.println("Speaker channel response"+response.getLength());
 		String volume = String.valueOf(response.getLength());
-        tvInfo_volume.setText(volume);
-
+        speakerInfo_volume.setText("Volume: "+volume);
 		
 
 	}
@@ -888,18 +892,18 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				System.out.println("TV response"+response.getMsg());
 			Boolean status=	response.getMsg();
 			if(status) {
-				tvInfo_status.setText("On");
+				tvInfo_status.setText("Status: On");
 			}else {
-				tvInfo_status.setText("Off");
+				tvInfo_status.setText("Status: Off");
 			}
 		}else if(device.equals("Speaker")) {
 			BooleanRes response = speaker_blockingStub.onOff(req);
 				System.out.println("Speaker Response"+response.getMsg());
 				Boolean status=	response.getMsg();
 				if(status) {
-					speakerInfo_status.setText("On");
+					speakerInfo_status.setText("Status: On");
 				}else {
-					speakerInfo_status.setText("Off");
+					speakerInfo_status.setText("Status: Off");
 				}
 		}else if(device.equals("Chromecast")) {
 			System.out.println("Chromecast Response not set up yet");
@@ -908,9 +912,9 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 			System.out.println("Lamp Response"+response.getMsg());
 			Boolean status=	response.getMsg();
 			if(status) {
-				lampInfo_status.setText("On");
+				lampInfo_status.setText("Status: On");
 			}else {
-				lampInfo_status.setText("Off");
+				lampInfo_status.setText("Status: Off");
 			}
 		}
 	}
@@ -920,8 +924,8 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		speakerResp response =speaker_blockingStub.initialDevice(req);
 		speakerInfo_name.setText("Name: "+response.getDname());
 		speakerInfo_status.setText("Status: "+response.getStatus());
-		String volume = String.valueOf("Volume: "+ response.getVolume());
-		speakerInfo_volume.setText(volume);
+		String volume = String.valueOf(response.getVolume());
+		speakerInfo_volume.setText("Volume: "+volume);
 
 	}
 	public void initialTV() {
@@ -930,10 +934,10 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		tvResp response =tv_blockingStub.initialDevice(req);
 		tvInfo_name.setText("Name: "+response.getDname());
 		tvInfo_status.setText("Status: "+response.getStatus());
-		String volume = String.valueOf("Volume: "+ response.getVolume());
-		tvInfo_volume.setText(volume);
-		String channel = String.valueOf("Channel: "+ response.getVolume());
-		tvInfo_channel.setText(channel);
+		String volume = String.valueOf(response.getVolume());
+		tvInfo_volume.setText("Volume: "+volume);
+		String channel = String.valueOf(response.getChannel());
+		tvInfo_channel.setText("Channel: "+channel);
 
 
 	}
