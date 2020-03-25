@@ -10,10 +10,12 @@ import javax.jmdns.ServiceListener;
 
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
+import org.DS.keithproject.SmartHomeGRPC.Empty;
 import org.DS.keithproject.SmartHomeGRPC.SpeakerServiceGrpc.SpeakerServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.StringRequest;
 import org.DS.keithproject.SmartHomeGRPC.StringResponse;
 import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
+import org.DS.keithproject.SmartHomeGRPC.deviceResp;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
@@ -25,7 +27,6 @@ import io.grpc.stub.StreamObserver;
 import jmDNS.Discovering;
 import jmDNS.Discovering.SampleListener;
 import Models.Speaker;
-import Models.TV;
 
 public class SpeakerServer extends SpeakerServiceImplBase {
 	
@@ -68,7 +69,8 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 	
 	private static final Logger logger = Logger.getLogger(SpeakerServer.class.getName());
 	public Speaker mySpeaker = new Speaker();
-	 public static void main(String[] args) throws IOException, InterruptedException {
+ 
+	public static void main(String[] args) throws IOException, InterruptedException {
 		startDiscovery();
 	    }
 	 public static void startDiscovery() throws IOException, InterruptedException {
@@ -96,7 +98,7 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 		        .build()
 		        .start();
 		    
-		    logger.info("TVServer started, listening on " + portNumber);
+		    logger.info("Speaker Server started, listening on " + portNumber);
 		    		    
 		    server.awaitTermination();
 	 }
@@ -114,13 +116,37 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 		responseObserver.onCompleted();
 
 	}
+	 
+	 public void initialDevice(Empty request, StreamObserver<deviceResp> responseObserver) {
+		 System.out.println("receiving initialDevice request for Speaker ");
+		 String status;
+
+		 if(mySpeaker.isOn()) {
+			  status ="On";
+		 }else {
+			  status ="Off";
+
+		 }
+		 String dName=mySpeaker.getDeviceName();
+		 String dStatus = status;
+		 Boolean dMute=mySpeaker.isMute();
+		 Integer dVolume=mySpeaker.getVolume();
+
+			
+		 deviceResp response = deviceResp.newBuilder()
+				 .setDname(dName).setStatus(dStatus).setMute(dMute).setVolume(dVolume)
+				 .build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+	}
 
 	 public void mute(BooleanReq request, StreamObserver<valResponse> responseObserver) {
 		 System.out.println("receiving mute for TV");
 		 Boolean mute = request.getMsg();
 		 if(mute.equals(true)) {
 			 mySpeaker.setVolume(0);
-			 valResponse response = valResponse.newBuilder().setLength(myTv.getVolume()).build();
+			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
 
@@ -136,7 +162,7 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 			int currentVolume= mySpeaker.getVolume();
 		 int volume = request.getLength();
 		 int newVolume = currentVolume +volume;
-		 System.out.println("receiving volume for TV"+ volume);
+		 System.out.println("receiving volume for Speaker"+ volume);
 		 if(newVolume<=100 && newVolume>=0){
 			 mySpeaker.setVolume(newVolume);
 			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
@@ -155,7 +181,7 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 	 @Override
 	 public void changeDeviceName(StringRequest request, StreamObserver<StringResponse> responseObserver) {
 		 String name = request.getText();
-		 System.out.println("Changing tv name to "+name);
+		 System.out.println("Changing speaker name to "+name);
 
 			 mySpeaker.setDeviceName(name);
 		 

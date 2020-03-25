@@ -8,7 +8,7 @@ public class Lamp {
 	public Lamp(){
 		this.device="Lamp";
 		this.on=true;
-		this.deviceName="Custom TV Name";
+		this.deviceName="Custom Lamp Name";
 		this.brightness=22;
 	}
 	

@@ -16,13 +16,10 @@ import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
-import com.google.protobuf.Int32ValueOrBuilder;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import jmDNS.Discovering;
-import jmDNS.Discovering.SampleListener;
 import Models.TV;
 
 public class TVServer extends TvServiceImplBase {

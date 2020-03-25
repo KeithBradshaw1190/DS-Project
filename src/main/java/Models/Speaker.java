@@ -5,11 +5,14 @@ private String device,deviceName;
 private boolean On, mute;
 private int volume;
 
-public Speaker() {
-	this.device="Speaker";
-
-}
-
+public Speaker(){
+		this.device="Speaker";
+		this.On=true;
+		this.deviceName="Custom Speaker Name";
+		this.volume=20;
+		this.mute=false;
+	}
+	
 
 public String getDevice() {
 	return device;

@@ -8,9 +8,12 @@ C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\valResponse.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\jmDNS\Discovering.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\BooleanRes.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\EmptyOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\jmDNS\Registering.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\StringResponse.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\BooleanResOrBuilder.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\GRPC\SpeakerServer.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\deviceRespOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\Models\Chromecast.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\GRPC\TVServer.java
@@ -21,7 +24,9 @@ C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\StringResponseOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\valRequest.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\Empty.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\TVServiceImpl.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\BooleanReq.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\deviceResp.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\SpeakerServiceImpl.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc.java

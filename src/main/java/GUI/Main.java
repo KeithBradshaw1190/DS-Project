@@ -22,6 +22,7 @@ import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
 
 import GRPC.LampServer;
+import GRPC.SpeakerServer;
 import GRPC.TVServer;
 import Models.Chromecast;
 import Models.Lamp;
@@ -137,6 +138,7 @@ public class Main {
 		startGRPCServers();
 		channels();
 		r.unRegister();
+		loadInitialDevices();
 	}
 
 	/**
@@ -148,9 +150,12 @@ public class Main {
 public void startGRPCServers() throws IOException, InterruptedException {
 	TVServer.startDiscovery();
 	LampServer.startDiscovery();
-	
+	SpeakerServer.startDiscovery();
+
 }
-	
+public void loadInitialDevices() throws IOException, InterruptedException {
+	initialSpeaker();
+}
 	public void channels() {
 	
 		System.out.println("CHANNELS STARTING");
@@ -476,12 +481,12 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		
 		JLabel label_2 = new JLabel("ChromeC");
 		label_2.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_2.setBounds(10, 402, 56, 14);
+		label_2.setBounds(10, 402, 76, 14);
 		frame.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("Lamp");
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_3.setBounds(10, 437, 45, 14);
+		label_3.setBounds(10, 439, 45, 14);
 		frame.getContentPane().add(label_3);
 		
 		JLabel lblDeviceStatus = new JLabel("Device Info");
@@ -626,7 +631,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		frame.getContentPane().add(label_4);
 		
 		speakerInfo_name = new JLabel("Device Name");
-		speakerInfo_name.setBounds(20, 377, 83, 14);
+		speakerInfo_name.setBounds(10, 377, 100, 14);
 		frame.getContentPane().add(speakerInfo_name);
 		
 		speakerInfo_status = new JLabel("Device Status");
@@ -642,7 +647,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		frame.getContentPane().add(speakerInfo_mute);
 		
 		tvInfo_name= new JLabel("Device Name");
-		tvInfo_name.setBounds(20, 332, 83, 14);
+		tvInfo_name.setBounds(10, 332, 93, 14);
 		frame.getContentPane().add(tvInfo_name);
 		
 		tvInfo_status = new JLabel("Device Status");
@@ -658,7 +663,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		frame.getContentPane().add(tvInfo_channel);
 		
 		ccInfo_name = new JLabel("Device Name");
-		ccInfo_name.setBounds(20, 418, 83, 14);
+		ccInfo_name.setBounds(10, 418, 93, 14);
 		frame.getContentPane().add(ccInfo_name);
 		
 		ccInfo_status = new JLabel("Device Status");
@@ -674,7 +679,7 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		frame.getContentPane().add(ccInfo_app);
 		
 		lampInfo_name = new JLabel("Device Name");
-		lampInfo_name.setBounds(20, 458, 83, 14);
+		lampInfo_name.setBounds(10, 458, 93, 14);
 		frame.getContentPane().add(lampInfo_name);
 		
 		lampInfo_status = new JLabel("Device Status");
@@ -684,6 +689,14 @@ public void startGRPCServers() throws IOException, InterruptedException {
 		lampInfo_brightness = new JLabel("Volume");
 		lampInfo_brightness.setBounds(220, 458, 48, 14);
 		frame.getContentPane().add(lampInfo_brightness);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 357, 432, 2);
+		frame.getContentPane().add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 402, 432, 2);
+		frame.getContentPane().add(separator_1);
 		appList.addActionListener(new ActionListener()  {
 			
 		    public void actionPerformed(ActionEvent e) {
@@ -898,5 +911,21 @@ public void startGRPCServers() throws IOException, InterruptedException {
 				lampInfo_status.setText("Off");
 			}
 		}
+	}
+	public void initialSpeaker() {
+		Empty req = Empty.newBuilder().build();
+		System.out.println("Changing Channel");
+		deviceResp response =speaker_blockingStub.initialDevice(req);
+		System.out.println("Speaker channel response"+response.getDname());
+		speakerInfo_name.setText(response.getDname());
+		speakerInfo_status.setText(response.getStatus());
+		String volume = String.valueOf(response.getVolume());
+		speakerInfo_volume.setText(volume);
+		speakerInfo_name.setText(response.getDname());
+
+	
+
+		
+
 	}
 }

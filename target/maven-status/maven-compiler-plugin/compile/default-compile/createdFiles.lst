@@ -1,3 +1,4 @@
+GRPC\SpeakerServer.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc$SpeakerServiceMethodDescriptorSupplier.class
 org\DS\keithproject\SmartHomeGRPC\TVServiceImpl.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$LampServiceFutureStub.class
@@ -13,6 +14,7 @@ org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$MethodHandlers.class
 GUI\Main$17.class
 org\DS\keithproject\SmartHomeGRPC\StringRequest$1.class
 org\DS\keithproject\SmartHomeGRPC\BooleanRes$Builder.class
+org\DS\keithproject\SmartHomeGRPC\Empty.class
 GUI\Main$22.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc$1.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$LampServiceBlockingStub.class
@@ -21,7 +23,9 @@ org\DS\keithproject\SmartHomeGRPC\LampServiceImpl$1.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$TvServiceFutureStub.class
 GUI\Main$11.class
 GUI\Main$4.class
+org\DS\keithproject\SmartHomeGRPC\deviceResp$1.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceImpl.class
+GRPC\SpeakerServer$1.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$TvServiceFileDescriptorSupplier.class
 org\DS\keithproject\SmartHomeGRPC\TVServiceImpl$1.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$1.class
@@ -36,6 +40,7 @@ org\DS\keithproject\SmartHomeGRPC\BooleanRes.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$1.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc.class
 Models\Speaker.class
+org\DS\keithproject\SmartHomeGRPC\deviceRespOrBuilder.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc.class
 org\DS\keithproject\SmartHomeGRPC\StringRequestOrBuilder.class
 GUI\Main$12.class
@@ -46,6 +51,7 @@ GUI\Main$18.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc$SpeakerServiceBlockingStub.class
 GRPC\LampServer$1.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc.class
+org\DS\keithproject\SmartHomeGRPC\Empty$1.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceImpl$1.class
 GUI\Main$16.class
 GUI\Main$9.class
@@ -53,15 +59,19 @@ org\DS\keithproject\SmartHomeGRPC\valRequest$Builder.class
 org\DS\keithproject\SmartHomeGRPC\SpeakerServiceGrpc$SpeakerServiceStub.class
 jmDNS\Discovering.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$LampServiceFileDescriptorSupplier.class
+org\DS\keithproject\SmartHomeGRPC\deviceResp.class
 GUI\Main$19.class
 org\DS\keithproject\SmartHomeGRPC\BooleanResOrBuilder.class
 Models\Chromecast.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$TvServiceMethodDescriptorSupplier.class
+GRPC\SpeakerServer$SampleListener.class
 GRPC\LampServer.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$LampServiceMethodDescriptorSupplier.class
+org\DS\keithproject\SmartHomeGRPC\Empty$Builder.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$TvServiceImplBase.class
 GUI\Main$6.class
 GUI\Main$13.class
+org\DS\keithproject\SmartHomeGRPC\EmptyOrBuilder.class
 org\DS\keithproject\SmartHomeGRPC\StringResponse$1.class
 GUI\Main$10.class
 org\DS\keithproject\SmartHomeGRPC\BooleanRes$1.class
@@ -88,6 +98,7 @@ org\DS\keithproject\SmartHomeGRPC\BooleanReqOrBuilder.class
 org\DS\keithproject\SmartHomeGRPC\StringRequest.class
 GUI\Main$15.class
 GUI\Main$8.class
+org\DS\keithproject\SmartHomeGRPC\deviceResp$Builder.class
 jmDNS\Discovering$SampleListener.class
 GRPC\TVServer$1.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceGrpc$LampServiceImplBase.class

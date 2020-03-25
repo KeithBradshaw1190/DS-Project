@@ -13,7 +13,6 @@ public class Registering {
 
     public static void main(String[] args) throws UnknownHostException, IOException  {
       	
-        // Create a JmDNS instance
 
     }
 	public void jmndsRegister(int speakerPort, int tvPort, int lampPort,int ccPort) throws InterruptedException {
@@ -21,7 +20,6 @@ public class Registering {
     	Speaker mySpeaker = new Speaker();
     	TV myTV = new TV();
     	Lamp myLamp = new Lamp();
-    	Chromecast myCC = new Chromecast(); 
 
         try {
         	
@@ -33,12 +31,10 @@ public class Registering {
             ServiceInfo serviceSpeaker = ServiceInfo.create("_http._tcp.local.", mySpeaker.getDevice(), speakerPort,"path=index.html");
             ServiceInfo serviceTV = ServiceInfo.create("_http._tcp.local.", myTV.getDevice(), tvPort, "path=index.html");
             ServiceInfo serviceLamp = ServiceInfo.create("_http._tcp.local.", myLamp.getDevice(), lampPort, "path=index.html");
-            ServiceInfo serviceCC = ServiceInfo.create("_http._tcp.local.", myCC.getDevice(), ccPort, "path=index.html");
             
-            jmdns.registerService(serviceSpeaker);
+         jmdns.registerService(serviceSpeaker);
             jmdns.registerService(serviceTV);
             jmdns.registerService(serviceLamp);
-            jmdns.registerService(serviceCC);
 
             
             // Wait a bit

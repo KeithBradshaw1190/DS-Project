@@ -27,6 +27,38 @@ public final class SpeakerServiceGrpc {
   public static final String SERVICE_NAME = "SmartHomeGRPC.SpeakerService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.deviceResp> getInitialDeviceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "initialDevice",
+      requestType = org.DS.keithproject.SmartHomeGRPC.Empty.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.deviceResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty,
+      org.DS.keithproject.SmartHomeGRPC.deviceResp> getInitialDeviceMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.deviceResp> getInitialDeviceMethod;
+    if ((getInitialDeviceMethod = SpeakerServiceGrpc.getInitialDeviceMethod) == null) {
+      synchronized (SpeakerServiceGrpc.class) {
+        if ((getInitialDeviceMethod = SpeakerServiceGrpc.getInitialDeviceMethod) == null) {
+          SpeakerServiceGrpc.getInitialDeviceMethod = getInitialDeviceMethod = 
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.Empty, org.DS.keithproject.SmartHomeGRPC.deviceResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "SmartHomeGRPC.SpeakerService", "initialDevice"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.deviceResp.getDefaultInstance()))
+                  .setSchemaDescriptor(new SpeakerServiceMethodDescriptorSupplier("initialDevice"))
+                  .build();
+          }
+        }
+     }
+     return getInitialDeviceMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod;
 
@@ -60,21 +92,21 @@ public final class SpeakerServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-      org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod;
+      org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "mute",
       requestType = org.DS.keithproject.SmartHomeGRPC.BooleanReq.class,
-      responseType = org.DS.keithproject.SmartHomeGRPC.BooleanRes.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-      org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod() {
-    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.BooleanRes> getMuteMethod;
+      org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.valResponse> getMuteMethod;
     if ((getMuteMethod = SpeakerServiceGrpc.getMuteMethod) == null) {
       synchronized (SpeakerServiceGrpc.class) {
         if ((getMuteMethod = SpeakerServiceGrpc.getMuteMethod) == null) {
           SpeakerServiceGrpc.getMuteMethod = getMuteMethod = 
-              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.BooleanRes>newBuilder()
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.BooleanReq, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.SpeakerService", "mute"))
@@ -82,7 +114,7 @@ public final class SpeakerServiceGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.DS.keithproject.SmartHomeGRPC.BooleanReq.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.DS.keithproject.SmartHomeGRPC.BooleanRes.getDefaultInstance()))
+                  org.DS.keithproject.SmartHomeGRPC.valResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new SpeakerServiceMethodDescriptorSupplier("mute"))
                   .build();
           }
@@ -184,6 +216,13 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.deviceResp> responseObserver) {
+      asyncUnimplementedUnaryCall(getInitialDeviceMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getChangeVolumeMethod(), responseObserver);
@@ -192,7 +231,7 @@ public final class SpeakerServiceGrpc {
     /**
      */
     public void mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request,
-        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes> responseObserver) {
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getMuteMethod(), responseObserver);
     }
 
@@ -213,6 +252,13 @@ public final class SpeakerServiceGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
+            getInitialDeviceMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                org.DS.keithproject.SmartHomeGRPC.Empty,
+                org.DS.keithproject.SmartHomeGRPC.deviceResp>(
+                  this, METHODID_INITIAL_DEVICE)))
+          .addMethod(
             getChangeVolumeMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
@@ -224,7 +270,7 @@ public final class SpeakerServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.BooleanReq,
-                org.DS.keithproject.SmartHomeGRPC.BooleanRes>(
+                org.DS.keithproject.SmartHomeGRPC.valResponse>(
                   this, METHODID_MUTE)))
           .addMethod(
             getOnOffMethod(),
@@ -264,6 +310,14 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
+    public void initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request,
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.deviceResp> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncServerStreamingCall(
@@ -273,7 +327,7 @@ public final class SpeakerServiceGrpc {
     /**
      */
     public void mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request,
-        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes> responseObserver) {
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getMuteMethod(), getCallOptions()), request, responseObserver);
     }
@@ -315,6 +369,13 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
+    public org.DS.keithproject.SmartHomeGRPC.deviceResp initialDevice(org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return blockingUnaryCall(
+          getChannel(), getInitialDeviceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
         org.DS.keithproject.SmartHomeGRPC.valRequest request) {
       return blockingServerStreamingCall(
@@ -323,7 +384,7 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
-    public org.DS.keithproject.SmartHomeGRPC.BooleanRes mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
+    public org.DS.keithproject.SmartHomeGRPC.valResponse mute(org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return blockingUnaryCall(
           getChannel(), getMuteMethod(), getCallOptions(), request);
     }
@@ -363,7 +424,15 @@ public final class SpeakerServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.BooleanRes> mute(
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.deviceResp> initialDevice(
+        org.DS.keithproject.SmartHomeGRPC.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getInitialDeviceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> mute(
         org.DS.keithproject.SmartHomeGRPC.BooleanReq request) {
       return futureUnaryCall(
           getChannel().newCall(getMuteMethod(), getCallOptions()), request);
@@ -386,10 +455,11 @@ public final class SpeakerServiceGrpc {
     }
   }
 
-  private static final int METHODID_CHANGE_VOLUME = 0;
-  private static final int METHODID_MUTE = 1;
-  private static final int METHODID_ON_OFF = 2;
-  private static final int METHODID_CHANGE_DEVICE_NAME = 3;
+  private static final int METHODID_INITIAL_DEVICE = 0;
+  private static final int METHODID_CHANGE_VOLUME = 1;
+  private static final int METHODID_MUTE = 2;
+  private static final int METHODID_ON_OFF = 3;
+  private static final int METHODID_CHANGE_DEVICE_NAME = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -408,13 +478,17 @@ public final class SpeakerServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_INITIAL_DEVICE:
+          serviceImpl.initialDevice((org.DS.keithproject.SmartHomeGRPC.Empty) request,
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.deviceResp>) responseObserver);
+          break;
         case METHODID_CHANGE_VOLUME:
           serviceImpl.changeVolume((org.DS.keithproject.SmartHomeGRPC.valRequest) request,
               (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse>) responseObserver);
           break;
         case METHODID_MUTE:
           serviceImpl.mute((org.DS.keithproject.SmartHomeGRPC.BooleanReq) request,
-              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.BooleanRes>) responseObserver);
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse>) responseObserver);
           break;
         case METHODID_ON_OFF:
           serviceImpl.onOff((org.DS.keithproject.SmartHomeGRPC.BooleanReq) request,
@@ -485,6 +559,7 @@ public final class SpeakerServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new SpeakerServiceFileDescriptorSupplier())
+              .addMethod(getInitialDeviceMethod())
               .addMethod(getChangeVolumeMethod())
               .addMethod(getMuteMethod())
               .addMethod(getOnOffMethod())
