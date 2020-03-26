@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
-
 import org.DS.keithproject.SmartHomeGRPC.BooleanReq;
 import org.DS.keithproject.SmartHomeGRPC.BooleanRes;
 import org.DS.keithproject.SmartHomeGRPC.Empty;
@@ -18,6 +17,7 @@ import org.DS.keithproject.SmartHomeGRPC.tvResp;
 import org.DS.keithproject.SmartHomeGRPC.TvServiceGrpc.TvServiceImplBase;
 import org.DS.keithproject.SmartHomeGRPC.valRequest;
 import org.DS.keithproject.SmartHomeGRPC.valResponse;
+
 
 
 import io.grpc.Server;

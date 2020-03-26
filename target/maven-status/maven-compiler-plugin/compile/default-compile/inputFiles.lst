@@ -1,3 +1,4 @@
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\ccResp.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\GRPC\LampServer.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\GUI\Main.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\Models\Lamp.java
@@ -25,9 +26,12 @@ C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\valRequestOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\BooleanReqOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\StringResponseOrBuilder.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\ccRespOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\ChromecastServiceGrpc.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\speakerRespOrBuilder.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\valRequest.java
+C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\ChromecastServiceImpl.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\Empty.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\TVServiceImpl.java
 C:\Users\Work Account\eclipse-workspace\org.DS.keithproject\src\main\java\org\DS\keithproject\SmartHomeGRPC\BooleanReq.java

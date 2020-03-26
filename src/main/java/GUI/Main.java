@@ -18,9 +18,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.DS.keithproject.SmartHomeGRPC.valRequest;
-import org.DS.keithproject.SmartHomeGRPC.valResponse;
-
 import GRPC.LampServer;
 import GRPC.SpeakerServer;
 import GRPC.TVServer;
@@ -31,7 +28,7 @@ import Models.TV;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.DS.keithproject.SmartHomeGRPC.*;
-import org.DS.keithproject.SmartHomeGRPC.LampServiceGrpc.LampServiceFutureStub;
+
 
 import io.grpc.stub.StreamObserver;
 import jmDNS.Registering;
@@ -77,6 +74,10 @@ public class Main {
 	private static SpeakerServiceGrpc.SpeakerServiceBlockingStub speaker_blockingStub;
 	private static SpeakerServiceGrpc.SpeakerServiceStub speaker_asyncStub;
 	private static SpeakerServiceGrpc.SpeakerServiceFutureStub speaker_futureStub;
+	
+	private static ChromecastServiceGrpc.ChromecastServiceBlockingStub cc_blockingStub;
+	private static ChromecastServiceGrpc.ChromecastServiceStub cc_asyncStub;
+	private static ChromecastServiceGrpc.ChromecastServiceFutureStub cc_futureStub;
 	private JTextField tvName_tf;
 	private JTextField speakerName_tf;
 	private JTextField ccName_tf;
@@ -157,6 +158,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	initialSpeaker();
 	initialTV();
 	initialLamp();
+	initialCc();
 }
 	public void channels() {
 	
@@ -164,6 +166,8 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		ManagedChannel tvChannel = ManagedChannelBuilder.forAddress("localhost",tvPort).usePlaintext().build();
 		ManagedChannel lampChannel = ManagedChannelBuilder.forAddress("localhost", lampPort).usePlaintext().build();
 		ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", speakerPort).usePlaintext().build();
+		ManagedChannel ccChannel = ManagedChannelBuilder.forAddress("localhost", ccPort).usePlaintext().build();
+
 		tv_blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
 		tv_asyncStub = TvServiceGrpc.newStub(tvChannel);
 		tv_futureStub = TvServiceGrpc.newFutureStub(tvChannel);
@@ -175,6 +179,9 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		speaker_blockingStub = SpeakerServiceGrpc.newBlockingStub(speakerChannel);
 		speaker_asyncStub = SpeakerServiceGrpc.newStub(speakerChannel);
 		speaker_futureStub = SpeakerServiceGrpc.newFutureStub(speakerChannel);
+		
+		cc_blockingStub = ChromecastServiceGrpc.newBlockingStub(ccChannel);
+
 	}
 
 	
@@ -252,7 +259,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(device_status4_lbl);
 		
 		JLabel lblBrigtness = new JLabel("Brightness");
-		lblBrigtness.setBounds(270, 225, 56, 14);
+		lblBrigtness.setBounds(254, 225, 72, 14);
 		frame.getContentPane().add(lblBrigtness);
 		
 		
@@ -855,7 +862,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 			//	return req.getLength();
 		
 				//lamp_asyncStub.changeBrightness(req);
-		System.out.println("Lamp Brightness response"+response);
+		//System.out.println("Lamp Brightness response"+response);
 
 
 	}
@@ -947,8 +954,18 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		lampResp response =lamp_blockingStub.initialDevice(req);
 		lampInfo_name.setText("Name: "+response.getDname());
 		lampInfo_status.setText("Status: "+response.getStatus());
-		String brightness = String.valueOf("Brightness: "+ response.getBrightness());
-		speakerInfo_volume.setText(brightness);
+		String brightness = String.valueOf(response.getBrightness());
+		speakerInfo_volume.setText("Brightness: "+ brightness);
 
+	}
+	public void initialCc() {
+		Empty req = Empty.newBuilder().build();
+		System.out.println("Initial Chromecast");
+		ccResp response =cc_blockingStub.initialDevice(req);
+		ccInfo_name.setText("Name: "+response.getDname());
+		ccInfo_status.setText("Status: "+response.getStatus());
+		String volume = String.valueOf(response.getVolume());
+		ccInfo_app.setText("Application: "+ response.getApp());
+		ccInfo_volume.setText("Volume:"+volume);
 	}
 }
