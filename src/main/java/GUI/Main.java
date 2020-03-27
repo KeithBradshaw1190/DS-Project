@@ -637,7 +637,14 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		appList.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		appList.setBounds(345, 194, 86, 20);
 		frame.getContentPane().add(appList);
-		
+		appList.addActionListener(new ActionListener()  {
+			
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox cb = (JComboBox)e.getSource();
+		        String appName = (String)cb.getSelectedItem();
+		        changeApplication(appName);	
+}		
+	});
 
 		
 		JLabel label_4 = new JLabel("Device Name");
@@ -711,14 +718,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(10, 402, 432, 2);
 		frame.getContentPane().add(separator_1);
-		appList.addActionListener(new ActionListener()  {
-			
-		    public void actionPerformed(ActionEvent e) {
-		        JComboBox cb = (JComboBox)e.getSource();
-		        String appName = (String)cb.getSelectedItem();
-		        System.out.println(appName);
-		    }		
-	});
+
 		
 		///////////////////
 		//GRPC Methods
@@ -829,7 +829,32 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				System.out.println("Speaker Response"+req.getLength());
 		}else if(device.equals("Chromecast")) {
 			//valResponse response = speaker_blockingStub.changeVolume(req);
-			System.out.println("Chromecast Response");
+				StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
+				
+				@Override
+				public void onNext(valResponse value) {
+					System.out.println("Receiving "+value);
+					String vol = String.valueOf(value.getLength());
+			        ccInfo_volume.setText("Volume: "+vol);
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					// TODO Auto-generated method stub
+					t.printStackTrace();
+				}
+
+				@Override
+				public void onCompleted() {
+					// TODO Auto-generated method stub
+					System.out.println("Completed changing volume");
+				}
+				
+				
+			};
+			
+				cc_asyncStub.changeVolume(req, response);
+				System.out.println("cc Response"+req.getLength());
 		}
 
 	}
@@ -873,6 +898,17 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		System.out.println("TV channel response"+response.getLength());
 		String channel = String.valueOf(response.getLength());
         tvInfo_channel.setText("Channel No: "+channel);
+
+		
+
+	}
+	public void changeApplication(String appName) {
+		StringRequest req = StringRequest.newBuilder().setText(appName).build();
+		System.out.println("Changing application to "+ req.getText());
+		StringResponse response =cc_blockingStub.changeApplication(req);
+		System.out.println("CC app response"+response.getText());
+		String app = String.valueOf(response.getText());
+        ccInfo_app.setText("App: "+app);
 
 		
 
@@ -965,7 +1001,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		ccInfo_name.setText("Name: "+response.getDname());
 		ccInfo_status.setText("Status: "+response.getStatus());
 		String volume = String.valueOf(response.getVolume());
-		ccInfo_app.setText("Application: "+ response.getApp());
+		ccInfo_app.setText("App: "+ response.getApp());
 		ccInfo_volume.setText("Volume:"+volume);
 	}
 }
