@@ -399,7 +399,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 					  changeDeviceName(ccName_tf.getText(),"Chromecast");
 				  }
 				  public void insertUpdate(DocumentEvent e) {
-					  System.out.println("insertUpdate "+tvName_tf.getText());
+					  System.out.println("insertUpdate "+ccName_tf.getText());
 					  changeDeviceName(ccName_tf.getText(),"Chromecast");
 				  }
 
@@ -557,7 +557,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 
 	            } else {
 	            	ccOnOff_tgl.setText("Off");
-					 onOff(true,"TV");
+					 onOff(false,"Chromecast");
 
 	            }
 				
@@ -707,7 +707,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		lampInfo_status.setBounds(125, 458, 90, 14);
 		frame.getContentPane().add(lampInfo_status);
 		
-		lampInfo_brightness = new JLabel("Volume");
+		lampInfo_brightness = new JLabel("Brightness");
 		lampInfo_brightness.setBounds(220, 458, 103, 14);
 		frame.getContentPane().add(lampInfo_brightness);
 		
@@ -757,8 +757,9 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		}
 		else if(device.equals("Chromecast")) {
 			System.out.println("Device is a Chromecast but not set up yet");
-			//StringResponse response = cc_blockingStub.changeDeviceName(req);
-			//System.out.println("Chromecast Response "+response.getText());
+			StringResponse response = cc_blockingStub.changeDeviceName(req);
+			System.out.println("cc Response "+response.getText());
+	        ccInfo_name.setText("Name: "+response.getText());
 		}
 
 	}
@@ -828,33 +829,13 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				speaker_asyncStub.changeVolume(req, response);
 				System.out.println("Speaker Response"+req.getLength());
 		}else if(device.equals("Chromecast")) {
-			//valResponse response = speaker_blockingStub.changeVolume(req);
-				StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
-				
-				@Override
-				public void onNext(valResponse value) {
-					System.out.println("Receiving "+value);
-					String vol = String.valueOf(value.getLength());
-			        ccInfo_volume.setText("Volume: "+vol);
-				}
-
-				@Override
-				public void onError(Throwable t) {
-					// TODO Auto-generated method stub
-					t.printStackTrace();
-				}
-
-				@Override
-				public void onCompleted() {
-					// TODO Auto-generated method stub
-					System.out.println("Completed changing volume");
-				}
-				
-				
-			};
 			
-				cc_asyncStub.changeVolume(req, response);
-				System.out.println("cc Response"+req.getLength());
+			System.out.println("Changing volume");
+			valResponse response =cc_blockingStub.changeVolume(req);
+			System.out.println("CC volume response"+response.getLength());
+			String vol = String.valueOf(response.getLength());
+	        ccInfo_volume.setText("Volume: "+vol);
+
 		}
 
 	}
@@ -949,7 +930,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 					speakerInfo_status.setText("Status: Off");
 				}
 		}else if(device.equals("Chromecast")) {
-			System.out.println("Chromecast Response not set up yet");
+			System.out.println("Chromecast Response ");
+			BooleanRes response = cc_blockingStub.onOff(req);
+			System.out.println("cc Response"+response.getMsg());
+			Boolean status=	response.getMsg();
+			if(status) {
+				ccInfo_status.setText("Status: On");
+			}else {
+				ccInfo_status.setText("Status: Off");
+			}
 		}else if(device.equals("Lamp")) {
 			BooleanRes response = lamp_blockingStub.onOff(req);
 			System.out.println("Lamp Response"+response.getMsg());
@@ -991,7 +980,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		lampInfo_name.setText("Name: "+response.getDname());
 		lampInfo_status.setText("Status: "+response.getStatus());
 		String brightness = String.valueOf(response.getBrightness());
-		speakerInfo_volume.setText("Brightness: "+ brightness);
+		lampInfo_brightness.setText("Brightness: "+ brightness);
 
 	}
 	public void initialCc() {
@@ -1004,4 +993,5 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		ccInfo_app.setText("App: "+ response.getApp());
 		ccInfo_volume.setText("Volume:"+volume);
 	}
+
 }

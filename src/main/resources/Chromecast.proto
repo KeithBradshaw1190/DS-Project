@@ -12,12 +12,12 @@ service ChromecastService {
   
   rpc changeApplication(StringRequest) returns (StringResponse) {}
 
-  rpc changeVolume(valRequest) returns (stream valResponse) {}
+  rpc changeVolume(valRequest) returns (valResponse) {}
 
   rpc onOff(BooleanReq) returns (BooleanRes) {}
   
   rpc changeDeviceName(StringRequest) returns (StringResponse) {}
-  
+
 }
 
 message Empty {
@@ -50,7 +50,7 @@ message valResponse {
 message ccResp{
 	string dname = 4;
 	string status = 5;
-    string app = 6;	
-    int32 volume = 7;	
+  string app = 6;	
+  int32 volume = 7;	
 
 }

@@ -154,6 +154,7 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
+				
 		 }
 
 	}
@@ -169,7 +170,16 @@ public class SpeakerServer extends SpeakerServiceImplBase {
 			 
 				responseObserver.onNext(response);
 				responseObserver.onCompleted();
-		 }else {
+				//handle mute
+		 }else if(mySpeaker.isMute()) {
+			 mySpeaker.setVolume(0);
+			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
+			 
+				responseObserver.onNext(response);
+				responseObserver.onCompleted();
+		 }
+		 
+		 else {
 			 valResponse response = valResponse.newBuilder().setLength(mySpeaker.getVolume()).build();
 			 
 				responseObserver.onNext(response);

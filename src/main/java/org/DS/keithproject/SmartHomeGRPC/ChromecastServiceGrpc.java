@@ -98,7 +98,7 @@ public final class ChromecastServiceGrpc {
       fullMethodName = SERVICE_NAME + '/' + "changeVolume",
       requestType = org.DS.keithproject.SmartHomeGRPC.valRequest.class,
       responseType = org.DS.keithproject.SmartHomeGRPC.valResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod() {
     io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeVolumeMethod;
@@ -107,7 +107,7 @@ public final class ChromecastServiceGrpc {
         if ((getChangeVolumeMethod = ChromecastServiceGrpc.getChangeVolumeMethod) == null) {
           ChromecastServiceGrpc.getChangeVolumeMethod = getChangeVolumeMethod = 
               io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.valRequest, org.DS.keithproject.SmartHomeGRPC.valResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "SmartHomeGRPC.ChromecastService", "changeVolume"))
               .setSampledToLocalTracing(true)
@@ -267,7 +267,7 @@ public final class ChromecastServiceGrpc {
                   this, METHODID_CHANGE_APPLICATION)))
           .addMethod(
             getChangeVolumeMethod(),
-            asyncServerStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 org.DS.keithproject.SmartHomeGRPC.valRequest,
                 org.DS.keithproject.SmartHomeGRPC.valResponse>(
@@ -328,7 +328,7 @@ public final class ChromecastServiceGrpc {
      */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
-      asyncServerStreamingCall(
+      asyncUnaryCall(
           getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -383,9 +383,8 @@ public final class ChromecastServiceGrpc {
 
     /**
      */
-    public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
-        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
-      return blockingServerStreamingCall(
+    public org.DS.keithproject.SmartHomeGRPC.valResponse changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request) {
+      return blockingUnaryCall(
           getChannel(), getChangeVolumeMethod(), getCallOptions(), request);
     }
 
@@ -436,6 +435,14 @@ public final class ChromecastServiceGrpc {
         org.DS.keithproject.SmartHomeGRPC.StringRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getChangeApplicationMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
+        org.DS.keithproject.SmartHomeGRPC.valRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChangeVolumeMethod(), getCallOptions()), request);
     }
 
     /**

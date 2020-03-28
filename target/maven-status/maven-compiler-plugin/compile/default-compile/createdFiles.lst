@@ -28,6 +28,7 @@ org\DS\keithproject\SmartHomeGRPC\ChromecastServiceGrpc.class
 org\DS\keithproject\SmartHomeGRPC\BooleanReq$1.class
 org\DS\keithproject\SmartHomeGRPC\ChromecastServiceGrpc$ChromecastServiceStub.class
 org\DS\keithproject\SmartHomeGRPC\LampServiceImpl$1.class
+GUI\Main$25.class
 org\DS\keithproject\SmartHomeGRPC\TvServiceGrpc$TvServiceFutureStub.class
 GUI\Main$11.class
 GUI\Main$4.class

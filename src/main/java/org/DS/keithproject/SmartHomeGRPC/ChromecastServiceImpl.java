@@ -70,18 +70,18 @@ public final class ChromecastServiceImpl {
       "\034\n\nvalRequest\022\016\n\006length\030\003 \001(\005\"\035\n\013valResp" +
       "onse\022\016\n\006length\030\003 \001(\005\"D\n\006ccResp\022\r\n\005dname\030" +
       "\004 \001(\t\022\016\n\006status\030\005 \001(\t\022\013\n\003app\030\006 \001(\t\022\016\n\006vo" +
-      "lume\030\007 \001(\0052\206\003\n\021ChromecastService\022>\n\rinit" +
+      "lume\030\007 \001(\0052\204\003\n\021ChromecastService\022>\n\rinit" +
       "ialDevice\022\024.SmartHomeGRPC.Empty\032\025.SmartH" +
       "omeGRPC.ccResp\"\000\022R\n\021changeApplication\022\034." +
       "SmartHomeGRPC.StringRequest\032\035.SmartHomeG" +
-      "RPC.StringResponse\"\000\022I\n\014changeVolume\022\031.S" +
+      "RPC.StringResponse\"\000\022G\n\014changeVolume\022\031.S" +
       "martHomeGRPC.valRequest\032\032.SmartHomeGRPC." +
-      "valResponse\"\0000\001\022?\n\005onOff\022\031.SmartHomeGRPC" +
-      ".BooleanReq\032\031.SmartHomeGRPC.BooleanRes\"\000" +
-      "\022Q\n\020changeDeviceName\022\034.SmartHomeGRPC.Str" +
-      "ingRequest\032\035.SmartHomeGRPC.StringRespons" +
-      "e\"\000B<\n!org.DS.keithproject.SmartHomeGRPC" +
-      "B\025ChromecastServiceImplP\001b\006proto3"
+      "valResponse\"\000\022?\n\005onOff\022\031.SmartHomeGRPC.B" +
+      "ooleanReq\032\031.SmartHomeGRPC.BooleanRes\"\000\022Q" +
+      "\n\020changeDeviceName\022\034.SmartHomeGRPC.Strin" +
+      "gRequest\032\035.SmartHomeGRPC.StringResponse\"" +
+      "\000B<\n!org.DS.keithproject.SmartHomeGRPCB\025" +
+      "ChromecastServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
