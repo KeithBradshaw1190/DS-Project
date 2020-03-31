@@ -21,7 +21,6 @@ import javax.swing.event.DocumentListener;
 import GRPC.LampServer;
 import GRPC.SpeakerServer;
 import GRPC.TVServer;
-import Models.Chromecast;
 import Models.Lamp;
 import Models.Speaker;
 import Models.TV;
@@ -207,7 +206,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(controller_lbl);
 		
 		JLabel device_name_lbl = new JLabel("Device Name");
-		device_name_lbl.setBounds(70, 90, 83, 14);
+		device_name_lbl.setBounds(56, 89, 83, 14);
 		frame.getContentPane().add(device_name_lbl);
 		
 		JLabel volume_lbl = new JLabel("Volume");
@@ -219,7 +218,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(lblChannel);
 		
 		JLabel device_name2_lblabel = new JLabel("Device Name");
-		device_name2_lblabel.setBounds(70, 135, 83, 14);
+		device_name2_lblabel.setBounds(56, 135, 83, 14);
 		frame.getContentPane().add(device_name2_lblabel);
 		
 		JLabel device_status2_lbl = new JLabel("Device Status");
@@ -235,7 +234,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(lblMute);
 		
 		JLabel device_name3_lbl = new JLabel("Device Name");
-		device_name3_lbl.setBounds(70, 180, 83, 14);
+		device_name3_lbl.setBounds(56, 180, 83, 14);
 		frame.getContentPane().add(device_name3_lbl);
 		
 		JLabel volume_3_lbl = new JLabel("Volume");
@@ -251,7 +250,7 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		frame.getContentPane().add(device_status3_lbl);
 		
 		JLabel device_name4_lbl = new JLabel("Device Name");
-		device_name4_lbl.setBounds(70, 225, 83, 14);
+		device_name4_lbl.setBounds(56, 225, 83, 14);
 		frame.getContentPane().add(device_name4_lbl);
 		
 		JLabel device_status4_lbl = new JLabel("Device Status");
@@ -647,9 +646,9 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	});
 
 		
-		JLabel label_4 = new JLabel("Device Name");
-		label_4.setBounds(163, 90, 83, 14);
-		frame.getContentPane().add(label_4);
+		JLabel lblDeviceStatus_1 = new JLabel("Device Status");
+		lblDeviceStatus_1.setBounds(170, 90, 83, 14);
+		frame.getContentPane().add(lblDeviceStatus_1);
 		
 		speakerInfo_name = new JLabel("Device Name");
 		speakerInfo_name.setBounds(10, 377, 111, 14);
@@ -736,10 +735,36 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	//Handle device
 		if(device.equals("TV")) {
 			System.out.println("Device is a TV");
-			StringResponse response = tv_blockingStub.changeDeviceName(req);
-				System.out.println("TV response "+response.getText());
-		        tvInfo_name.setText("Name: "+response.getText());
+			StringRequest request = StringRequest.newBuilder().setText(newName).build();
+			StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
 
+				@Override
+			public void onNext(StringResponse value) {
+				// TODO Auto-generated method stub
+				System.out.println(" on next TV Response " +value.getText());
+				tvInfo_name.setText("Name: "+value.getText());
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					// TODO Auto-generln("TV response "+response.getText());
+					System.out.println("Error with name connection for tv ");
+				}
+
+				@Override
+				public void onCompleted() {
+					// TODO Auto-generated method stub
+					System.out.println("On completed for tv name");
+				}
+			
+			};
+			tv_asyncStub.changeDeviceName(request,responseObserver);
+			try {
+				Thread.sleep(200);
+			}catch(InterruptedException e){
+				System.out.println("Connection Interrupted");
+
+			}
 		}
 		else if(device.equals("Speaker")) {
 			System.out.println("Device is a Speaker");
@@ -756,7 +781,6 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 
 		}
 		else if(device.equals("Chromecast")) {
-			System.out.println("Device is a Chromecast but not set up yet");
 			StringResponse response = cc_blockingStub.changeDeviceName(req);
 			System.out.println("cc Response "+response.getText());
 	        ccInfo_name.setText("Name: "+response.getText());
@@ -769,7 +793,6 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 		System.out.println("Changing volume");
 
 		if(device.equals("TV")) {
-			//valResponse response = tv_asyncStub.changeVolume(req);
 			StreamObserver<valResponse> response = new StreamObserver<valResponse>() {
 				
 				@Override

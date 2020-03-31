@@ -174,7 +174,6 @@ public class TVServer extends TvServiceImplBase {
 		responseObserver.onCompleted();
 
 	}
-	 @Override
 	 public void changeDeviceName(StringRequest request, StreamObserver<StringResponse> responseObserver) {
 		 String name = request.getText();
 		 System.out.println("Changing tv name to "+name);
@@ -185,6 +184,32 @@ public class TVServer extends TvServiceImplBase {
 		 System.out.println("Response "+response.getText());
 		 responseObserver.onNext(response);
 		responseObserver.onCompleted();
+	 }
+	 public StreamObserver<StringRequest> changeDeviceNameStream(final StreamObserver<StringResponse> responseObserver){
+		return new StreamObserver<StringRequest>() {
+
+			@Override
+			public void onNext(StringRequest value) {
+				// TODO Auto-generated method stub
+				System.out.println("On next text value "+value.getText());
+				StringResponse resp = StringResponse.newBuilder().setText(value.getText()).build();
+				responseObserver.onNext(resp);
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				t.printStackTrace();
+			}
+
+			@Override
+			public void onCompleted() {
+				// TODO Auto-generated method stub
+				responseObserver.onCompleted();
+			}
+			
+		};
+		 
 	 }
 	 @Override
 	 public void changeChannel(valRequest request, StreamObserver<valResponse> responseObserver) {

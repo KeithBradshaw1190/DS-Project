@@ -70,7 +70,7 @@ public final class TVServiceImpl {
       "quest\022\016\n\006length\030\003 \001(\005\"\035\n\013valResponse\022\016\n\006" +
       "length\030\003 \001(\005\"H\n\006tvResp\022\r\n\005dname\030\004 \001(\t\022\016\n" +
       "\006status\030\005 \001(\t\022\016\n\006volume\030\006 \001(\005\022\017\n\007channel" +
-      "\030\007 \001(\0052\265\003\n\tTvService\022>\n\rinitialDevice\022\024." +
+      "\030\007 \001(\0052\222\004\n\tTvService\022>\n\rinitialDevice\022\024." +
       "SmartHomeGRPC.Empty\032\025.SmartHomeGRPC.tvRe" +
       "sp\"\000\022I\n\014changeVolume\022\031.SmartHomeGRPC.val" +
       "Request\032\032.SmartHomeGRPC.valResponse\"\0000\001\022" +
@@ -79,10 +79,13 @@ public final class TVServiceImpl {
       "tHomeGRPC.BooleanReq\032\031.SmartHomeGRPC.Boo" +
       "leanRes\"\000\022Q\n\020changeDeviceName\022\034.SmartHom" +
       "eGRPC.StringRequest\032\035.SmartHomeGRPC.Stri" +
-      "ngResponse\"\000\022H\n\rchangeChannel\022\031.SmartHom" +
-      "eGRPC.valRequest\032\032.SmartHomeGRPC.valResp" +
-      "onse\"\000B4\n!org.DS.keithproject.SmartHomeG" +
-      "RPCB\rTVServiceImplP\001b\006proto3"
+      "ngResponse\"\000\022[\n\026changeDeviceNameStream\022\034" +
+      ".SmartHomeGRPC.StringRequest\032\035.SmartHome" +
+      "GRPC.StringResponse\"\000(\0010\001\022H\n\rchangeChann" +
+      "el\022\031.SmartHomeGRPC.valRequest\032\032.SmartHom" +
+      "eGRPC.valResponse\"\000B4\n!org.DS.keithproje" +
+      "ct.SmartHomeGRPCB\rTVServiceImplP\001b\006proto" +
+      "3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

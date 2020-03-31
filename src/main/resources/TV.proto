@@ -11,13 +11,16 @@ package SmartHomeGRPC;
 service TvService {
   rpc initialDevice(Empty) returns (tvResp) {}
   
+  //Server Side Stream
   rpc changeVolume(valRequest) returns (stream valResponse) {}
   
   rpc mute(BooleanReq) returns (valResponse) {}
   
   rpc onOff(BooleanReq) returns (BooleanRes) {}
-  
+  //Bi Directional stream
   rpc changeDeviceName(StringRequest) returns (StringResponse) {}
+  rpc changeDeviceNameStream(stream StringRequest) returns (stream StringResponse) {}
+  
   
   rpc changeChannel(valRequest) returns (valResponse) {}
   

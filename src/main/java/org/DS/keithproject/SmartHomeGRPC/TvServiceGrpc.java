@@ -187,6 +187,38 @@ public final class TvServiceGrpc {
      return getChangeDeviceNameMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.StringRequest,
+      org.DS.keithproject.SmartHomeGRPC.StringResponse> getChangeDeviceNameStreamMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "changeDeviceNameStream",
+      requestType = org.DS.keithproject.SmartHomeGRPC.StringRequest.class,
+      responseType = org.DS.keithproject.SmartHomeGRPC.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.StringRequest,
+      org.DS.keithproject.SmartHomeGRPC.StringResponse> getChangeDeviceNameStreamMethod() {
+    io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.StringRequest, org.DS.keithproject.SmartHomeGRPC.StringResponse> getChangeDeviceNameStreamMethod;
+    if ((getChangeDeviceNameStreamMethod = TvServiceGrpc.getChangeDeviceNameStreamMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getChangeDeviceNameStreamMethod = TvServiceGrpc.getChangeDeviceNameStreamMethod) == null) {
+          TvServiceGrpc.getChangeDeviceNameStreamMethod = getChangeDeviceNameStreamMethod = 
+              io.grpc.MethodDescriptor.<org.DS.keithproject.SmartHomeGRPC.StringRequest, org.DS.keithproject.SmartHomeGRPC.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "SmartHomeGRPC.TvService", "changeDeviceNameStream"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  org.DS.keithproject.SmartHomeGRPC.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("changeDeviceNameStream"))
+                  .build();
+          }
+        }
+     }
+     return getChangeDeviceNameStreamMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<org.DS.keithproject.SmartHomeGRPC.valRequest,
       org.DS.keithproject.SmartHomeGRPC.valResponse> getChangeChannelMethod;
 
@@ -254,6 +286,9 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Server Side Stream
+     * </pre>
      */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
@@ -275,10 +310,20 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Bi Directional stream
+     * </pre>
      */
     public void changeDeviceName(org.DS.keithproject.SmartHomeGRPC.StringRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getChangeDeviceNameMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringRequest> changeDeviceNameStream(
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getChangeDeviceNameStreamMethod(), responseObserver);
     }
 
     /**
@@ -326,6 +371,13 @@ public final class TvServiceGrpc {
                 org.DS.keithproject.SmartHomeGRPC.StringResponse>(
                   this, METHODID_CHANGE_DEVICE_NAME)))
           .addMethod(
+            getChangeDeviceNameStreamMethod(),
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                org.DS.keithproject.SmartHomeGRPC.StringRequest,
+                org.DS.keithproject.SmartHomeGRPC.StringResponse>(
+                  this, METHODID_CHANGE_DEVICE_NAME_STREAM)))
+          .addMethod(
             getChangeChannelMethod(),
             asyncUnaryCall(
               new MethodHandlers<
@@ -363,6 +415,9 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Server Side Stream
+     * </pre>
      */
     public void changeVolume(org.DS.keithproject.SmartHomeGRPC.valRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.valResponse> responseObserver) {
@@ -387,11 +442,22 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Bi Directional stream
+     * </pre>
      */
     public void changeDeviceName(org.DS.keithproject.SmartHomeGRPC.StringRequest request,
         io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getChangeDeviceNameMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringRequest> changeDeviceNameStream(
+        io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringResponse> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getChangeDeviceNameStreamMethod(), getCallOptions()), responseObserver);
     }
 
     /**
@@ -429,6 +495,9 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Server Side Stream
+     * </pre>
      */
     public java.util.Iterator<org.DS.keithproject.SmartHomeGRPC.valResponse> changeVolume(
         org.DS.keithproject.SmartHomeGRPC.valRequest request) {
@@ -451,6 +520,9 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Bi Directional stream
+     * </pre>
      */
     public org.DS.keithproject.SmartHomeGRPC.StringResponse changeDeviceName(org.DS.keithproject.SmartHomeGRPC.StringRequest request) {
       return blockingUnaryCall(
@@ -508,6 +580,9 @@ public final class TvServiceGrpc {
     }
 
     /**
+     * <pre>
+     *Bi Directional stream
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<org.DS.keithproject.SmartHomeGRPC.StringResponse> changeDeviceName(
         org.DS.keithproject.SmartHomeGRPC.StringRequest request) {
@@ -530,6 +605,7 @@ public final class TvServiceGrpc {
   private static final int METHODID_ON_OFF = 3;
   private static final int METHODID_CHANGE_DEVICE_NAME = 4;
   private static final int METHODID_CHANGE_CHANNEL = 5;
+  private static final int METHODID_CHANGE_DEVICE_NAME_STREAM = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -582,6 +658,9 @@ public final class TvServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_CHANGE_DEVICE_NAME_STREAM:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.changeDeviceNameStream(
+              (io.grpc.stub.StreamObserver<org.DS.keithproject.SmartHomeGRPC.StringResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -638,6 +717,7 @@ public final class TvServiceGrpc {
               .addMethod(getMuteMethod())
               .addMethod(getOnOffMethod())
               .addMethod(getChangeDeviceNameMethod())
+              .addMethod(getChangeDeviceNameStreamMethod())
               .addMethod(getChangeChannelMethod())
               .build();
         }
