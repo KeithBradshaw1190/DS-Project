@@ -26,6 +26,8 @@ import Models.Speaker;
 import Models.TV;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
+
 import org.DS.keithproject.SmartHomeGRPC.*;
 
 
@@ -898,7 +900,17 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void changeChannel(int value) {
 		valRequest req = valRequest.newBuilder().setLength(value).build();
 		System.out.println("Changing Channel");
-		valResponse response =tv_blockingStub.changeChannel(req);
+		
+		valResponse response;
+		//Error Handling
+		try {
+			 response =tv_blockingStub.changeChannel(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}
+		
 		System.out.println("TV channel response"+response.getLength());
 		String channel = String.valueOf(response.getLength());
         tvInfo_channel.setText("Channel No: "+channel);
@@ -909,7 +921,20 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void changeApplication(String appName) {
 		StringRequest req = StringRequest.newBuilder().setText(appName).build();
 		System.out.println("Changing application to "+ req.getText());
-		StringResponse response =cc_blockingStub.changeApplication(req);
+		StringResponse response;
+		
+		
+		//Error Handling
+		try {
+			 response =cc_blockingStub.changeApplication(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}
+		
+		
+		
 		System.out.println("CC app response"+response.getText());
 		String app = String.valueOf(response.getText());
         ccInfo_app.setText("App: "+app);
@@ -921,10 +946,21 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void mute(boolean value) {
 		BooleanReq req = BooleanReq.newBuilder().setMsg(value).build();
 		System.out.println("Mute");
-		valResponse response =speaker_blockingStub.mute(req);
+		valResponse response;
+		//Error Handling
+		try {
+			 response =speaker_blockingStub.mute(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}
+
 		System.out.println("Speaker channel response"+response.getLength());
 		String volume = String.valueOf(response.getLength());
         speakerInfo_volume.setText("Volume: "+volume);
+		
+		
 		
 
 	}
@@ -935,7 +971,19 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 
 	//Handle device to work with
 		if(device.equals("TV")) {
-			BooleanRes response = tv_blockingStub.onOff(req);
+			BooleanRes response;
+			//Error Handling
+			try {
+				 response  = tv_blockingStub.onOff(req);
+
+			}catch(StatusRuntimeException e) {
+				System.out.println("RPC failed: {0}"+ e.getStatus());
+				return;
+			}
+
+			
+			
+			
 				System.out.println("TV response"+response.getMsg());
 			Boolean status=	response.getMsg();
 			if(status) {
@@ -944,7 +992,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				tvInfo_status.setText("Status: Off");
 			}
 		}else if(device.equals("Speaker")) {
-			BooleanRes response = speaker_blockingStub.onOff(req);
+			BooleanRes response;
+			//Error Handling
+			try {
+				 response = speaker_blockingStub.onOff(req);
+
+			}catch(StatusRuntimeException e) {
+				System.out.println("RPC failed: {0}"+ e.getStatus());
+				return;
+			}
 				System.out.println("Speaker Response"+response.getMsg());
 				Boolean status=	response.getMsg();
 				if(status) {
@@ -954,7 +1010,17 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				}
 		}else if(device.equals("Chromecast")) {
 			System.out.println("Chromecast Response ");
-			BooleanRes response = cc_blockingStub.onOff(req);
+
+			BooleanRes response;
+			//Error Handling
+			try {
+				 response = cc_blockingStub.onOff(req);
+
+			}catch(StatusRuntimeException e) {
+				System.out.println("RPC failed: {0}"+ e.getStatus());
+				return;
+			}
+			
 			System.out.println("cc Response"+response.getMsg());
 			Boolean status=	response.getMsg();
 			if(status) {
@@ -963,7 +1029,19 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 				ccInfo_status.setText("Status: Off");
 			}
 		}else if(device.equals("Lamp")) {
-			BooleanRes response = lamp_blockingStub.onOff(req);
+			BooleanRes response ;
+			
+			//Error Handling
+			try {
+				 response = lamp_blockingStub.onOff(req);
+
+			}catch(StatusRuntimeException e) {
+				System.out.println("RPC failed: {0}"+ e.getStatus());
+				return;
+			}
+			
+			
+			
 			System.out.println("Lamp Response"+response.getMsg());
 			Boolean status=	response.getMsg();
 			if(status) {
@@ -976,7 +1054,15 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void initialSpeaker() {
 		Empty req = Empty.newBuilder().build();
 		System.out.println("Initial Speaker");
-		speakerResp response =speaker_blockingStub.initialDevice(req);
+		speakerResp response;
+		//Error Handling
+		try {
+			 response = speaker_blockingStub.initialDevice(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}		
 		speakerInfo_name.setText("Name: "+response.getDname());
 		speakerInfo_status.setText("Status: "+response.getStatus());
 		String volume = String.valueOf(response.getVolume());
@@ -986,7 +1072,16 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void initialTV() {
 		Empty req = Empty.newBuilder().build();
 		System.out.println("Initial TV");
-		tvResp response =tv_blockingStub.initialDevice(req);
+		tvResp response;
+		
+		//Error Handling
+		try {
+			 response = tv_blockingStub.initialDevice(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}		
 		tvInfo_name.setText("Name: "+response.getDname());
 		tvInfo_status.setText("Status: "+response.getStatus());
 		String volume = String.valueOf(response.getVolume());
@@ -999,7 +1094,16 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void initialLamp() {
 		Empty req = Empty.newBuilder().build();
 		System.out.println("Initial Lamp");
-		lampResp response =lamp_blockingStub.initialDevice(req);
+		lampResp response;
+		//Error Handling
+		try {
+			 response = lamp_blockingStub.initialDevice(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}		
+		
 		lampInfo_name.setText("Name: "+response.getDname());
 		lampInfo_status.setText("Status: "+response.getStatus());
 		String brightness = String.valueOf(response.getBrightness());
@@ -1009,7 +1113,17 @@ public void loadInitialDevices() throws IOException, InterruptedException {
 	public void initialCc() {
 		Empty req = Empty.newBuilder().build();
 		System.out.println("Initial Chromecast");
-		ccResp response =cc_blockingStub.initialDevice(req);
+		ccResp response;
+		
+		//Error Handling
+		try {
+			 response = cc_blockingStub.initialDevice(req);
+
+		}catch(StatusRuntimeException e) {
+			System.out.println("RPC failed: {0}"+ e.getStatus());
+			return;
+		}		
+		
 		ccInfo_name.setText("Name: "+response.getDname());
 		ccInfo_status.setText("Status: "+response.getStatus());
 		String volume = String.valueOf(response.getVolume());
