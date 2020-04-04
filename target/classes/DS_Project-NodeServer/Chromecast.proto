@@ -1,0 +1,53 @@
+syntax = "proto3";
+package SmartHomeGRPC;
+// Interface exported by the server.
+
+
+
+service ChromecastService {
+  rpc initialDevice(Empty) returns (ccResp) {}
+  
+  rpc changeApplication(StringRequest) returns (StringResponse) {}
+
+  rpc changeVolume(valRequest) returns (valResponse) {}
+
+  rpc onOff(BooleanReq) returns (BooleanRes) {}
+  
+  rpc changeDeviceName(StringRequest) returns (StringRequest) {}
+
+}
+
+message Empty {
+
+}
+
+
+message StringRequest {
+	string text = 1;
+}
+
+message StringResponse {
+	string text = 1;
+}
+
+message BooleanReq {
+	bool msg = 2;
+}
+
+message BooleanRes {
+	bool msg = 2;
+}
+
+message valRequest {
+  int32 length = 3;
+}
+message valResponse {
+  int32 length = 3;
+}
+message ccResp{
+	string dname = 4;
+	string status = 5;
+  string app = 6;	
+  int32 volume = 7;	
+
+}
